@@ -1,3 +1,4 @@
+//渐变色线段案例
 //three.js中点的表示
 // THREE.Vector3 = function (x, y, z) {
 //     this.x = x || 0;
@@ -35,11 +36,7 @@ function initCamera() {
     camera.up.x = 0;
     camera.up.y = 0;
     camera.up.z = 1;
-    camera.lookAt({
-        x: 0,
-        y: 0,
-        z: 0
-    });
+    camera.lookAt(0,0,0);
 }
 //创建场景
 var scene;
@@ -70,17 +67,17 @@ function initObject() {
     var material = new THREE.LineBasicMaterial({ vertexColors: true });
 
     //线条两个端点的颜色
-    var color1 = new THREE.Color(0x444444),color2 = new THREE.Color(0xFF0000);
+    var color1 = new THREE.Color(154/255.0,1,1,1),color2 = new THREE.Color(0xFF0000);
 
     // 线的材质可以由2点的颜色决定
     //设置坐标
     var p1 = new THREE.Vector3(-100, 0, 100);
     var p2 = new THREE.Vector3(100, 0, -100);
-    geometry.vertices.push(p1);
+    geometry.vertices.push(p1); 
     geometry.vertices.push(p2);
     geometry.colors.push(color1, color2);//设置颜色
 
-    var line = new THREE.Line(geometry, material, THREE.LinePieces);
+    var line = new THREE.Line(geometry, material, THREE.LineSegments);
     scene.add(line);
 }
 
@@ -96,7 +93,7 @@ function CreateLine() {
 
 //窗口尺寸自适应
 window.onresize=function(){
-    render.setSize(window.innerWidth,window.innerHeight);//重设渲染器宽高比
+    renderer.setSize(window.innerWidth,window.innerHeight);//重设渲染器宽高比
     camera.aspect=window.innerWidth/window.innerHeight;//重设相机宽高比
     camera.updateProjectionMatrix();// 重新计算投影矩阵
 }
