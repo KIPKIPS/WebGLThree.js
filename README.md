@@ -276,8 +276,10 @@ window.onresize=function(){ // 将函数赋予window.onresize
         obj.rotation.z=rotationz;
     }
     ```
-###矩阵
+
+- 矩阵
     ```js
+    
     TODO:平移矩阵 表示一个顶点坐标沿着X Y Z轴分别平移Tx Ty Tz
     | 1  0  0  Tx |
     | 0  1  0  Ty |
@@ -324,3 +326,4 @@ window.onresize=function(){ // 将函数赋予window.onresize
     平移.makeTranslation(Tx,Ty,Tz)
     剪切.makeShear
     ```
+    
