@@ -60,6 +60,10 @@ function threeStart() {
 }
 function animation() {
     mesh.position.x -= 1;
+    //console.log(mesh.rotation)
+    mesh.rotation.x-=0.05
+    mesh.rotation.y-=0.05
+    mesh.rotation.z-=0.05
     renderer.render(scene, camera);
     requestAnimationFrame(animation);
 }
