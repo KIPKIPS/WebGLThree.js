@@ -5,8 +5,7 @@
  ![blockchain](./pic/1-1摄像机.svg)  
 ### 案例的结构
  ![blockchain](./pic/1-1结构.png) 
- # 坐标
-## threejs坐标系
+### threejs坐标系
 - threejs中有世界坐标系,本地坐标系,屏幕坐标
 - threejs是webgl的库,所以它坐标系其实就继承于webgl,即二者坐标系是一样的.
 - webgl使用笛卡尔坐标系(三维坐标系) 右手坐标系
