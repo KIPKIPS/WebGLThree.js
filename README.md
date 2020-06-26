@@ -1,28 +1,6 @@
 ## 安装three.js  
     1.npm `npm install three@0.106.2`  
     2.下载three.js文件拖入项目
-### 透视相机
- ![blockchain](./pic/1-1摄像机.svg)  
-### 案例的结构
- ![blockchain](./pic/1-1结构.png) 
-### threejs坐标系
-- threejs中有世界坐标系,本地坐标系,屏幕坐标
-- threejs是webgl的库,所以它坐标系其实就继承于webgl,即二者坐标系是一样的.
-- webgl使用笛卡尔坐标系(三维坐标系) 右手坐标系
-![blockchain](./pic/1-2坐标系.jpg)
-### canvas
-canvas的尺寸的问题 canvas的实际尺寸是canvas的width和height决定的
-    - html中
-    ```HTML
-    <canvas width="800" height="600">
-    ```
-    - js中
-    ```JS
-    let canvas = document.createElement("canvas");
-    canvas.width=800;
-    canvas.height=600;
-    ```
-- 可以给canvas设置css控制宽高(屏幕上显示的宽高),即对一张图片设置css对图片进行拉伸或者挤压操作,不会改变图片的实际分辨率和大小.
 
 ### 矩阵
     ```js
