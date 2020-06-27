@@ -21,7 +21,6 @@ var camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0
         
     3.渲染器 主要作用是将场景显示到屏幕上 构造方法 var rende r= new THREE.WebGLRenderer();
     4.几何体(网格模型) 几何体是包围必要三维数据的数据结构,属性包含顶点数组 this.vertices,颜色信息 this.color,片面数据 this.faces
-    
     ```js
     //声明和赋值
     var geometry=new THREE.Geometry();
@@ -34,12 +33,10 @@ var camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0
     geometry.colors.push(color1, color2);//为顶点设置颜色
     var line = new THREE.Line(geometry, material, THREE.LineSegments);//使用定义好的顶点坐标,材质信息来构造几何体
     scene.add(line);//将模型添加到场景中
-    ```
+```
     
 ### 矩阵
-
-    ```
-    
+```js
     TODO:平移矩阵 表示一个顶点坐标沿着X Y Z轴分别平移Tx Ty Tz
     | 1  0  0  Tx |
     | 0  1  0  Ty |
@@ -85,5 +82,4 @@ var camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0
     缩放.makeScale(Sx,Sy,Sz)
     平移.makeTranslation(Tx,Ty,Tz)
     剪切.makeShear
-    ```
-    
+```
