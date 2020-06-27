@@ -9,7 +9,7 @@
         <1>fov(field of view),可视角
         <2>近切面,远切面,相机视锥体的远近限制范围
         <3>aspect,宽高比,相机切面的宽高比例 w/h
-```
+```js
 //定义一个相机
 var scene=new THREE.Scene();//场景
 
@@ -22,7 +22,7 @@ var camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0
     3.渲染器 主要作用是将场景显示到屏幕上 构造方法 var rende r= new THREE.WebGLRenderer();
     4.几何体(网格模型) 几何体是包围必要三维数据的数据结构,属性包含顶点数组 this.vertices,颜色信息 this.color,片面数据 this.faces
     
-    ```
+    ```js
     //声明和赋值
     var geometry=new THREE.Geometry();
     //geometry.vertices=[],是一个数组,值为顶点数据
