@@ -1,3 +1,6 @@
+//性能监控
+var stats;
+
 var renderer;
 function initThree() {
     width = document.getElementById('canvas-frame').clientWidth;
@@ -8,6 +11,13 @@ function initThree() {
     renderer.setSize(width, height);
     document.getElementById('canvas-frame').appendChild(renderer.domElement);
     renderer.setClearColor(0xFFFFFF, 1.0);
+
+    stats = new Stats();
+    stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+    stats.domElement.style.position = "absolute";
+    stats.domElement.style.left = "0px";
+    stats.domElement.style.right = "0px";
+    document.getElementById("canvas-frame").appendChild(stats.domElement);
 }
 
 var camera;
@@ -40,13 +50,16 @@ function initLight() {
 
 var cube;
 var mesh = new THREE.Mesh();
-function initObject(){
+function initObject() {
     var geometry = new THREE.CylinderGeometry(100, 150, 400);
-    var material = new THREE.MeshLambertMaterial({ color:0xFFFF00});
+    var material = new THREE.MeshLambertMaterial({ color: 0xFFFF00 });
     mesh.geometry = geometry;
     mesh.material = material;
     mesh.position = new THREE.Vector3(0, 0, 0);
     scene.add(mesh);
+}
+function initTween(){
+    new TWEEN.Tween(mesh.position).to({x:500},500).repeat(Infinity).start();
 }
 
 function threeStart() {
@@ -55,22 +68,28 @@ function threeStart() {
     initScene();
     initLight();
     initObject();
+    initTween();
     animation();
 
 }
 function animation() {
-    mesh.position.x -= 1;
+    stats.begin();
+
+    //mesh.position.x -= 1;
     //console.log(mesh.rotation)
-    mesh.rotation.x-=0.05
-    mesh.rotation.y-=0.05
-    mesh.rotation.z-=0.05
+    // mesh.rotation.x -= 0.05
+    // mesh.rotation.y -= 0.05
+    // mesh.rotation.z -= 0.05
     renderer.render(scene, camera);
+    TWEEN.update()
+    stats.end();
+
     requestAnimationFrame(animation);
 }
 
 //窗口尺寸自适应
-window.onresize=function(){
-    renderer.setSize(window.innerWidth,window.innerHeight);//重设渲染器宽高比
-    camera.aspect=window.innerWidth/window.innerHeight;//重设相机宽高比
+window.onresize = function () {
+    renderer.setSize(window.innerWidth, window.innerHeight);//重设渲染器宽高比
+    camera.aspect = window.innerWidth / window.innerHeight;//重设相机宽高比
     camera.updateProjectionMatrix();// 重新计算投影矩阵
 }
