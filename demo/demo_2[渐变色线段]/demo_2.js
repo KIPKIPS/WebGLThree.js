@@ -20,7 +20,7 @@ function initThree() {
     width = document.getElementById('canvas-frame').clientWidth;
     height = document.getElementById('canvas-frame').clientHeight;
     renderer = new THREE.WebGLRenderer({
-        antialias: true
+        antialias: false,//设置为false可以提高渲染性能
     });
     renderer.setSize(width, height);
     document.getElementById('canvas-frame').appendChild(renderer.domElement);
@@ -56,6 +56,7 @@ function initLight() {
 var cube;
 function initObject() {
     var geometry = new THREE.Geometry();//声明一个几何体,几何体的vertices变量可以用来存储点
+
     //定义一种线条的材质,使用THREE.LineBasicMaterial类型来定义,接受一个集合作为参数
     //集合的参数属性列表
     //Color:线条的颜色,用16进制来表示,默认的颜色是白色
@@ -67,7 +68,7 @@ function initObject() {
     var material = new THREE.LineBasicMaterial({ vertexColors: true });
 
     //线条两个端点的颜色
-    var color1 = new THREE.Color(154/255.0,1,1,1),color2 = new THREE.Color(0xFF0000);
+    var color1 = new THREE.Color(154/255,1,1,1),color2 = new THREE.Color(0xFF0000);
 
     // 线的材质可以由2点的颜色决定
     //设置坐标
