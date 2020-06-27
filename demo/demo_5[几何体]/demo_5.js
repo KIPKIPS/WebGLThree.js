@@ -14,5 +14,3 @@ var end=new THREE.Vector3(4,4,4)
 var dis=start.distanceTo(end)
 console.log(dis)
 
-//几何体是包围必要三维数据的数据结构
-

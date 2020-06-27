@@ -68,17 +68,35 @@ function initObject() {
     var material = new THREE.LineBasicMaterial({ vertexColors: true });
 
     //线条两个端点的颜色
-    var color1 = new THREE.Color(154/255,1,1,1),color2 = new THREE.Color(0xFF0000);
+    var color1 = new THREE.Color(0/255,0,0,1),color2 = new THREE.Color(0xFF0000);
 
     // 线的材质可以由2点的颜色决定
     //设置坐标
-    var p1 = new THREE.Vector3(-100, 0, 100);
-    var p2 = new THREE.Vector3(100, 0, -100);
-    geometry.vertices.push(p1); 
-    geometry.vertices.push(p2);
-    geometry.colors.push(color1, color2);//设置颜色
+    //module1
+    // var p1 = new THREE.Vector3(0,0, 0);
+    // var p2 = new THREE.Vector3(0,0,200);
+    // geometry.vertices.push(p1);     
+    // geometry.vertices.push(p2);
+    // geometry.colors.push(color1, color2);//设置颜色
+    // var line = new THREE.Line(geometry, material,THREE.LineBasicMaterial);
 
-    var line = new THREE.Line(geometry, material, THREE.LineSegments);
+    //module_2
+    var p1 = new THREE.Vector3(0,0, 0);
+    var p2 = new THREE.Vector3(200,0,0);
+    var p3 = new THREE.Vector3(100,0,100*Math.sqrt(3));
+    geometry.vertices.push(p1);     
+    geometry.vertices.push(p2);
+    geometry.vertices.push(p3);
+    geometry.vertices.push(p1);
+    geometry.colors.push(
+        new THREE.Color(0xFF0000),
+        new THREE.Color(0x00FF00),
+        new THREE.Color(0x0000FF),
+        new THREE.Color(0xFF0000)
+        );//设置颜色
+    //至少需要四个点才能构成三角形
+    var line = new THREE.Line(geometry, material,THREE.LineBasicMaterial);
+
     scene.add(line);
 }
 
