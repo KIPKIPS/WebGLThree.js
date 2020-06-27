@@ -9,13 +9,18 @@
         <1>fov(field of view),可视角
         <2>近切面,远切面,相机视锥体的远近限制范围
         <3>aspect,宽高比,相机切面的宽高比例 w/h
+    示例:
+        
 ```js
 //定义一个相机
 var scene=new THREE.Scene();//场景
 
-var camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,20);
+var camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,20);//透视投影相机
 //透视相机,参数含义(可视角度,宽高比,近切面,远切面)
 //fov 可视角度 field of view
+
+camera = new THREE.OrthographicCamera(-window.innerWidth /2, window.innerWidth / 2, window.innerHeight / 2, -window.innerHeight /2, 10, 1000);//正交投影相机
+//正交相机,参数含义(左边界,右边界,上边界,下边界,近切面,远切面)
 ```
 
         
