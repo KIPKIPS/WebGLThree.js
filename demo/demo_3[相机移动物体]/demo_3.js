@@ -22,8 +22,8 @@ function initThree() {
 
 var camera;
 function initCamera() {
-    //camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);//透视投影相机
-    camera = new THREE.OrthographicCamera(window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, 10, 1000);//正交投影相机
+    camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);//透视投影相机
+    //camera = new THREE.OrthographicCamera(-window.innerWidth /2, window.innerWidth / 2, window.innerHeight / 2, -window.innerHeight /2, 10, 10000);//正交投影相机
     camera.position.x = 0;
     camera.position.y = 0;
     camera.position.z = 600;
@@ -50,16 +50,26 @@ function initLight() {
 
 var cube;
 var mesh = new THREE.Mesh();
+
+var objs=new THREE.Object3D();
 function initObject() {
     var geometry = new THREE.CylinderGeometry(100, 150, 400);
     var material = new THREE.MeshLambertMaterial({ color: 0xFFFF00 });
     mesh.geometry = geometry;
     mesh.material = material;
-    mesh.position = new THREE.Vector3(0, 0, 0);
-    scene.add(mesh);
+    mesh.position=new THREE.Vector3(0,0,0);
+    var axesHelper=new THREE.AxesHelper(800);//辅助坐标系
+    //scene.add(axesHelper);
+    //scene.add(mesh);
+    objs.position.z=-1000
+    objs.add(mesh);
+    objs.add(axesHelper);
+    scene.add(objs)
+
 }
 function initTween(){
-    new TWEEN.Tween(mesh.position).to({x:500},500).repeat(Infinity).start();
+    //new TWEEN.Tween(mesh.position).to({x:500},4000).repeat(3).start();
+    new TWEEN.Tween(objs.rotation).to({y:360,z:360},100000).repeat(Infinity).start();
 }
 
 function threeStart() {
@@ -70,7 +80,6 @@ function threeStart() {
     initObject();
     initTween();
     animation();
-
 }
 function animation() {
     stats.begin();
