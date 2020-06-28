@@ -12,9 +12,9 @@ document.body.appendChild(render.domElement);//在body上添加子组件,即渲�
 render.render(scene,camera);//使用创建的相机和场景进行渲染
 
 //生成物体
-var geometrybe=new THREE.BoxGeometry(5,5,5);//创建立方体,长宽高,物体的结构
+var geometry=new THREE.BoxGeometry(5,5,5);//创建立方体,长宽高,物体的结构
 var material=new THREE.MeshBasicMaterial({color:0xff0000})//设置材质
-var mesh=new THREE.Mesh(geometrybe,material);//渲染出来的可以控制的物体对象
+var mesh=new THREE.Mesh(geometry,material);//渲染出来的可以控制的物体对象
 
 scene.add(mesh);//将物体放入场景
 camera.position.z=10;

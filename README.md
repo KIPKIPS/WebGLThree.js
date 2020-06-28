@@ -26,8 +26,10 @@ var camera = new THREE.OrthographicCamera(-window.innerWidth /2, window.innerWid
         
     3.渲染器 主要作用是将场景显示到屏幕上 构造方法 var rende r= new THREE.WebGLRenderer();
     4.几何体(网格模型) 几何体是包围必要三维数据的数据结构,属性包含顶点数组 this.vertices,颜色信息 this.color,片面数据 this.faces
+	##线段
 ```js
     //声明和赋值
+	//1.线段
     var geometry=new THREE.Geometry();
     //geometry.vertices=[],是一个数组,值为顶点数据
     geometry.vertices.push(
@@ -39,7 +41,16 @@ var camera = new THREE.OrthographicCamera(-window.innerWidth /2, window.innerWid
     var line = new THREE.Line(geometry, material, THREE.LineSegments);//使用定义好的顶点坐标,材质信息来构造几何体
     scene.add(line);//将模型添加到场景中
  ```
-    
+    ##引擎提供的几何体
+	```js
+    //声明和赋值
+	//1.圆柱体
+    var geometry = new THREE.CylinderGeometry(100, 150, 400);//参数列表上平面半径,下平面半径,高度
+    var material = new THREE.MeshLambertMaterial({ color: 0xFFFF00 });
+    var mesh=new THREE.Mesh(geometry,material)
+    mesh.position=new THREE.Vector3(0,0,0);
+ ```
+	
 ### 矩阵
 
 ```js

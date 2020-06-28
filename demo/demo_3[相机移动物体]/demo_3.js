@@ -49,14 +49,13 @@ function initLight() {
 }
 
 var cube;
-var mesh = new THREE.Mesh();
+
 
 var objs=new THREE.Object3D();
 function initObject() {
     var geometry = new THREE.CylinderGeometry(100, 150, 400);
     var material = new THREE.MeshLambertMaterial({ color: 0xFFFF00 });
-    mesh.geometry = geometry;
-    mesh.material = material;
+    var mesh=new THREE.Mesh(geometry,material)
     mesh.position=new THREE.Vector3(0,0,0);
     var axesHelper=new THREE.AxesHelper(800);//辅助坐标系
     //scene.add(axesHelper);
