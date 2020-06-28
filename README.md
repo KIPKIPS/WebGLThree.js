@@ -19,11 +19,15 @@ var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight
 //透视相机,参数含义(可视角度,宽高比,近切面,远切面)
 //fov 可视角度 field of view
 
-var camera = new THREE.OrthographicCamera(-window.innerWidth /2, window.innerWidth / 2, window.innerHeight / 2, -window.innerHeight /2, 10, 1000);//正交投影相机
+//正交投影相机
+var camera = new THREE.OrthographicCamera(
+    -window.innerWidth /2, 
+    window.innerWidth / 2, 
+    window.innerHeight / 2, 
+    -window.innerHeight /2, 10, 1000
+);
 //正交相机,参数含义(左边界,右边界,上边界,下边界,近切面,远切面)
-```
-
-        
+```    
 ##### 3.渲染器 主要作用是将场景显示到屏幕上 构造方法 var rende r= new THREE.WebGLRenderer();
 ##### 4.几何体(网格模型) 几何体是包围必要三维数据的数据结构,属性包含顶点数组 this.vertices,颜色信息 this.color,片面数据 this.faces
     (1)线段
@@ -41,9 +45,7 @@ var camera = new THREE.OrthographicCamera(-window.innerWidth /2, window.innerWid
     var line = new THREE.Line(geometry, material, THREE.LineSegments);//使用定义好的顶点坐标,材质信息来构造几何体
     scene.add(line);//将模型添加到场景中
  ```
- 
     (2)引擎提供的几何体
-
 ```js
     //声明和赋值
 	//圆柱体 参数列表,上平面半径,下平面半径,高度,圆被划分的次数,越大越接近圆
@@ -52,9 +54,7 @@ var camera = new THREE.OrthographicCamera(-window.innerWidth /2, window.innerWid
     var mesh=new THREE.Mesh(geometry,material)
     mesh.position=new THREE.Vector3(0,0,0);
  ```
-	
 ### 三.矩阵
-
 ```js
     TODO:平移矩阵 表示一个顶点坐标沿着X Y Z轴分别平移Tx Ty Tz
     | 1  0  0  Tx |
