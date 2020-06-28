@@ -12,21 +12,21 @@
     示例:
         
 ```js
-//定义一个相机
-var scene=new THREE.Scene();//场景
+    //定义一个相机
+    var scene=new THREE.Scene();//场景
 
-var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,20);//透视投影相机
-//透视相机,参数含义(可视角度,宽高比,近切面,远切面)
-//fov 可视角度 field of view
+    var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,20);//透视投影相机
+    //透视相机,参数含义(可视角度,宽高比,近切面,远切面)
+    //fov 可视角度 field of view
 
-//正交投影相机
-var camera = new THREE.OrthographicCamera(
-    -window.innerWidth /2, 
-    window.innerWidth / 2, 
-    window.innerHeight / 2, 
-    -window.innerHeight /2, 10, 1000
-);
-//正交相机,参数含义(左边界,右边界,上边界,下边界,近切面,远切面)
+    //正交投影相机
+    var camera = new THREE.OrthographicCamera(
+        -window.innerWidth /2, 
+        window.innerWidth / 2, 
+        window.innerHeight / 2, 
+        -window.innerHeight /2, 10, 1000
+    );
+    //正交相机,参数含义(左边界,右边界,上边界,下边界,近切面,远切面)
 ```    
 ##### 3.渲染器 主要作用是将场景显示到屏幕上 构造方法 var rende r= new THREE.WebGLRenderer();
 ##### 4.几何体(网格模型) 几何体是包围必要三维数据的数据结构,属性包含顶点数组 this.vertices,颜色信息 this.color,片面数据 this.faces
@@ -61,7 +61,8 @@ var camera = new THREE.OrthographicCamera(
     | 0  1  0  Ty |
     | 0  0  1  Tz |
     | 0  0  0  1  |
-    一个点的坐标是(x,y,z),假设沿着X Y Z轴分别平移Tx Ty Tz 平移后的坐标是(x+Tx,y+Ty,z+Tz) 矩阵和表示顶点坐标的向量进行乘法运算
+    一个点的坐标是(x,y,z),假设沿着X Y Z轴分别平移Tx Ty Tz 平移后的坐标是(x+Tx,y+Ty,z+Tz) 
+    矩阵和表示顶点坐标的向量进行乘法运算
     | 1  0  0  Tx |   | x |   | x+Tx |
     | 0  1  0  Ty | x | y | = | y+Ty |
     | 0  0  1  Tz |   | z |   | z+Tz |
@@ -125,13 +126,13 @@ var camera = new THREE.OrthographicCamera(
         var gui=new dat.GUI;
         gui.add(param,"fov",0,180).name("视角大小");
     }
-    //在初始化的时候调用CreateGUI();函数来创建一个GUI
-    //在动画函数中调用ChangeFov();函数来改变相机的视角
-    //ChangeFov函数,将param的值赋给camera的fov(视角)参数,然后更新相机的矩阵
-    function ChangeFov(){
-        camera.fov=param.fov;
-        camera.updateProjectionMatrix(); 
-    }
+//在初始化的时候调用CreateGUI();函数来创建一个GUI
+//在动画函数中调用ChangeFov();函数来改变相机的视角
+//ChangeFov函数,将param的值赋给camera的fov(视角)参数,然后更新相机的矩阵
+function ChangeFov(){
+    camera.fov=param.fov;
+    camera.updateProjectionMatrix(); 
+}
  ```
  ### 六.性能检测工具staus.js的使用
     1.在vscode终端控制台使用npm install stats.js安装插件
@@ -146,3 +147,9 @@ var camera = new THREE.OrthographicCamera(
     document.getElementById("canvas-frame").appendChild(stats.domElement);
  ```
     4.检测性能,在检测代码的前后加上stats.begin();和stats.end();两个方法 //详细使用见demo_3.js
+### 七.光源
+    起初神创造天地
+    地是空虚混沌,渊面黑暗,神的灵运行在水面上
+    神说,要有光,于是就有了光,不好意思跑题了......
+    THREE.js提供的集中光源:THREE.AmbientLight(环境光) THREE.AreaLight(区域光) THREE..DirectionalLight(方向光)
+    THREE.SpotLight(聚光灯) THREE.PointLight(点光源)
