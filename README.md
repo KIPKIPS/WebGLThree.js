@@ -102,12 +102,16 @@ var camera = new THREE.OrthographicCamera(-window.innerWidth /2, window.innerWid
     平移.makeTranslation(Tx,Ty,Tz)
     剪切.makeShear
 ```
-### 四.Tween动画
-    1.使用new TWEEN.Tween(objs.rotation).to({y:360,z:360},10000).repeat(Infinity).start();来定义一个动画
+### 四.Tween.js动画库
+    1.安装方法:
+        (1).vscode终端控制台运行npm i @tweenjs/tween.js@^18
+        (2).html引入node_modules/@tweenjs/tween.js/dist/tween.umd.js
+    详细案例见demo_3.js
+    2.使用new TWEEN.Tween(objs.rotation).to({y:360,z:360},10000).repeat(Infinity).start();来定义一个动画
 	objs为需要操作的属性,to(属性状态的最终值),10000为动画所需时间,Infinity为一直播放,可填入正正数表示动画
 	执行次数
-	2.在动画更新函数中调用TWEEN.update()
-### 五.引入DAT.GUI工具
+    3.在动画更新函数中调用TWEEN.update()
+### 五.DAT.GUI工具
     1.vscode终端控制台运行 npm install --save dat.gui
 	2.HTML界面引入脚本dat.gui/build/dat.gui.min.js
 	3.使用方法
@@ -121,11 +125,24 @@ var camera = new THREE.OrthographicCamera(-window.innerWidth /2, window.innerWid
         var gui=new dat.GUI;
         gui.add(param,"fov",0,180).name("视角大小");
     }
-	//在初始化的时候调用CreateGUI();函数来创建一个GUI
-	//在动画函数中调用ChangeFov();函数来改变相机的视角
-	//ChangeFov函数,将param的值赋给camera的fov(视角)参数,然后更新相机的矩阵
-	function ChangeFov(){
-            camera.fov=param.fov;
-            camera.updateProjectionMatrix();
-        }
+    //在初始化的时候调用CreateGUI();函数来创建一个GUI
+    //在动画函数中调用ChangeFov();函数来改变相机的视角
+    //ChangeFov函数,将param的值赋给camera的fov(视角)参数,然后更新相机的矩阵
+    function ChangeFov(){
+        camera.fov=param.fov;
+        camera.updateProjectionMatrix(); 
+    }
  ```
+ ### 六.性能检测工具staus.js的使用
+    1.在vscode终端控制台使用npm install stats.js安装插件
+    2.引入node_modules/stats.js/build/stats.min.js文件
+    3.初始化
+```js
+    var stats = new Stats();
+    stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+    stats.domElement.style.position = "absolute";
+    stats.domElement.style.left = "0px";
+    stats.domElement.style.right = "0px";
+    document.getElementById("canvas-frame").appendChild(stats.domElement);
+ ```
+    4.检测性能,在检测代码的前后加上stats.begin();和stats.end();两个方法 //详细使用见demo_3.js
