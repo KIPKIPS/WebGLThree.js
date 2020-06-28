@@ -151,4 +151,4 @@ function ChangeFov(){
     地是空虚混沌,渊面黑暗,神的灵运行在水面上
     神说,要有光,于是就有了光,不好意思跑题了......
     THREE.js提供的集中光源:THREE.AmbientLight(环境光) THREE.AreaLight(区域光) THREE..DirectionalLight(方向光)
-                          THREE.SpotLight(聚光灯) THREE.PointLight(点光源)
+    THREE.SpotLight(聚光灯) THREE.PointLight(点光源)
