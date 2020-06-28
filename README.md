@@ -1,9 +1,9 @@
-### 安装three.js  
+### 一.安装three.js  
     1.npm `npm install three@0.106.2`  
     2.下载three.js文件拖入项目
-### 基本组件
-    1.场景 var scene = new THREE.Scene()
-    2.相机
+### 二.基本组件
+##### 1.场景 var scene = new THREE.Scene()
+##### 2.相机
       (1)正交相机和透视相机(近大远小)
       (2)相机的属性
         <1>fov(field of view),可视角
@@ -24,9 +24,9 @@ var camera = new THREE.OrthographicCamera(-window.innerWidth /2, window.innerWid
 ```
 
         
-    3.渲染器 主要作用是将场景显示到屏幕上 构造方法 var rende r= new THREE.WebGLRenderer();
-    4.几何体(网格模型) 几何体是包围必要三维数据的数据结构,属性包含顶点数组 this.vertices,颜色信息 this.color,片面数据 this.faces
-##### 线段
+##### 3.渲染器 主要作用是将场景显示到屏幕上 构造方法 var rende r= new THREE.WebGLRenderer();
+##### 4.几何体(网格模型) 几何体是包围必要三维数据的数据结构,属性包含顶点数组 this.vertices,颜色信息 this.color,片面数据 this.faces
+    (1)线段
 ```js
     //声明和赋值
 	//1.线段
@@ -42,18 +42,18 @@ var camera = new THREE.OrthographicCamera(-window.innerWidth /2, window.innerWid
     scene.add(line);//将模型添加到场景中
  ```
  
-##### 引擎提供的几何体
+    (2)引擎提供的几何体
 
 ```js
     //声明和赋值
-	//1.圆柱体
-    var geometry = new THREE.CylinderGeometry(100, 150, 400);//参数列表上平面半径,下平面半径,高度
+	//圆柱体 参数列表,上平面半径,下平面半径,高度,圆被划分的次数,越大越接近圆
+    var geometry = new THREE.CylinderGeometry(100, 150, 400);
     var material = new THREE.MeshLambertMaterial({ color: 0xFFFF00 });
     var mesh=new THREE.Mesh(geometry,material)
     mesh.position=new THREE.Vector3(0,0,0);
  ```
 	
-### 矩阵
+### 三.矩阵
 
 ```js
     TODO:平移矩阵 表示一个顶点坐标沿着X Y Z轴分别平移Tx Ty Tz
@@ -102,7 +102,7 @@ var camera = new THREE.OrthographicCamera(-window.innerWidth /2, window.innerWid
     平移.makeTranslation(Tx,Ty,Tz)
     剪切.makeShear
 ```
-### Tween动画
+### 四.Tween动画
     1.使用new TWEEN.Tween(objs.rotation).to({y:360,z:360},10000).repeat(Infinity).start();来定义一个动画
 	objs为需要操作的属性,to(属性状态的最终值),10000为动画所需时间,Infinity为一直播放,可填入正正数表示动画
 	执行次数
