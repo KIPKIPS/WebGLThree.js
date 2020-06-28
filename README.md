@@ -107,3 +107,25 @@ var camera = new THREE.OrthographicCamera(-window.innerWidth /2, window.innerWid
 	objs为需要操作的属性,to(属性状态的最终值),10000为动画所需时间,Infinity为一直播放,可填入正正数表示动画
 	执行次数
 	2.在动画更新函数中调用TWEEN.update()
+### 五.引入DAT.GUI工具
+    1.vscode终端控制台运行 npm install --save dat.gui
+	2.HTML界面引入脚本dat.gui/build/dat.gui.min.js
+	3.使用方法
+	```js
+	var param;//使用param来控制相机的视角大小
+    function CreateGUI(){
+        var paramObj=function(){
+            this.fov=45;
+        }
+        param=new paramObj();
+        var gui=new dat.GUI;
+        gui.add(param,"fov",0,180).name("视角大小");
+    }
+	在初始化的时候调用CreateGUI();函数来创建一个GUI
+	在动画函数中调用ChangeFov();函数来改变相机的视角
+	//ChangeFov函数,将param的值赋给camera的fov(视角)参数,然后更新相机的矩阵
+	function ChangeFov(){
+        camera.fov=param.fov;
+        camera.updateProjectionMatrix();
+    }
+	```

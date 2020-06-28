@@ -16,7 +16,7 @@ function initThree() {
     stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
     stats.domElement.style.position = "absolute";
     stats.domElement.style.left = "0px";
-    stats.domElement.style.right = "0px";
+    stats.domElement.style.bottom = "0px";
     document.getElementById("canvas-frame").appendChild(stats.domElement);
 }
 
@@ -70,7 +70,15 @@ function initTween(){
     //new TWEEN.Tween(mesh.position).to({x:500},4000).repeat(3).start();
     new TWEEN.Tween(objs.rotation).to({y:360,z:360,x:360},1000000).repeat(Infinity).start();
 }
-
+var param;
+function CreateGUI(){
+    var paramObj=function(){
+        this.fov=45;
+    }
+    param=new paramObj();
+    var gui=new dat.GUI;
+    gui.add(param,"fov",0,180).name("视角大小");
+}
 function threeStart() {
     initThree();
     initCamera();
@@ -78,10 +86,12 @@ function threeStart() {
     initLight();
     initObject();
     initTween();
+    CreateGUI();
     animation();
 }
 function animation() {
     stats.begin();
+    ChangeFov();
     //mesh.position.x -= 1;
     //console.log(mesh.rotation)
     // mesh.rotation.x -= 0.05
@@ -98,4 +108,8 @@ window.onresize = function () {
     renderer.setSize(window.innerWidth, window.innerHeight);//重设渲染器宽高比
     camera.aspect = window.innerWidth / window.innerHeight;//重设相机宽高比
     camera.updateProjectionMatrix();// 重新计算投影矩阵
+}
+function ChangeFov(){
+    camera.fov=param.fov;
+    camera.updateProjectionMatrix();
 }
