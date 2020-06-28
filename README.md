@@ -89,3 +89,8 @@ var camera = new THREE.OrthographicCamera(-window.innerWidth /2, window.innerWid
     平移.makeTranslation(Tx,Ty,Tz)
     剪切.makeShear
 ```
+### Tween动画
+    1.使用new TWEEN.Tween(objs.rotation).to({y:360,z:360},10000).repeat(Infinity).start();来定义一个动画
+	objs为需要操作的属性,to(属性状态的最终值),10000为动画所需时间,Infinity为一直播放,可填入正正数表示动画
+	执行次数
+	2.在动画更新函数中调用TWEEN.update()

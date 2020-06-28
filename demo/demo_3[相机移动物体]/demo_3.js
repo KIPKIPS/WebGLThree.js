@@ -69,7 +69,7 @@ function initObject() {
 }
 function initTween(){
     //new TWEEN.Tween(mesh.position).to({x:500},4000).repeat(3).start();
-    new TWEEN.Tween(objs.rotation).to({y:360,z:360},100000).repeat(Infinity).start();
+    new TWEEN.Tween(objs.rotation).to({y:360,z:360,x:360},1000000).repeat(Infinity).start();
 }
 
 function threeStart() {
@@ -83,16 +83,14 @@ function threeStart() {
 }
 function animation() {
     stats.begin();
-
     //mesh.position.x -= 1;
     //console.log(mesh.rotation)
     // mesh.rotation.x -= 0.05
     // mesh.rotation.y -= 0.05
     // mesh.rotation.z -= 0.05
-    renderer.render(scene, camera);
     TWEEN.update()
+    renderer.render(scene, camera);
     stats.end();
-
     requestAnimationFrame(animation);
 }
 
