@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <title></title>
     <script src="../../build/three.js"></script>
+    <script src="../../node_modules/stats.js/build/stats.min.js"></script>
     <script src="./demo_6.js"></script>
+    <script src="../../node_modules/@tweenjs/tween.js/dist/tween.umd.js"></script>
+    <script src="../../node_modules/dat.gui/build/dat.gui.js"></script>
     <style type="text/css">
         div#canvas-frame {
             border: none;
@@ -20,7 +23,7 @@
     </style>
 </head>
 
-<body style="height: 100%; width: 100%;">
+<body style="height: 100%; width: 100%;overflow: hidden;" onload="threeStart();">
     <div style="height: 100%; width: 100%;" id="canvas-frame"></div>
 </body>
 
