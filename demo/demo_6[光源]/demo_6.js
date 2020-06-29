@@ -17,6 +17,7 @@ function initThree() {
     stats.domElement.style.position = "absolute";
     stats.domElement.style.left = "0px";
     stats.domElement.style.bottom = "0px";
+    stats.domElement.style.height = "50px";
     document.getElementById("canvas-frame").appendChild(stats.domElement);
 }
 
@@ -39,29 +40,34 @@ function initScene() {
 }
 
 var light;
+var paramLight;
 function initLight() {
     var paramObj=function(){
         this.x=0;
         this.y=0;
         this.z=0;
     }
-    param=new paramObj();
+    paramLight=new paramObj();
     var gui=new dat.GUI;
-    gui.add(param,"x",-10000,10000).name("环境光X");
-    gui.add(param,"y",-10000,10000).name("环境光Y");
-    gui.add(param,"z",-10000,10000).name("环境光Z");
+    gui.add(paramLight,"x",-10000,10000).name("环境光X");
+    gui.add(paramLight,"y",-10000,10000).name("环境光Y");
+    gui.add(paramLight,"z",-10000,10000).name("环境光Z");
 
-    light = new THREE.AmbientLight(0xFFFF00);
-    light.position.set(100, 100, 200);
-    scene.add(light);
-    light = new THREE.PointLight(0x00FF00);
-    light.position.set(param.x, param.y, param.z);
+    //light = new THREE.AmbientLight(0xFFFF00);
+    light = new THREE.DirectionalLight(0xFFFFFF);
+    //light = new THREE.AreaLight(0xFFFF00);
+    //light = new THREE.SpotLight(0xFFFF00);
+    //light = new THREE.PointLight(0xFFFF00,1);
+    //light.position.set(0, 0, 0);
+    //scene.add(light);
+    //light = new THREE.PointLight(0x00FF00);
+    light.position.set(paramLight.x, paramLight.y, paramLight.z);
     scene.add(light);
 }
 var mesh;
 function initObject() {
     var geometry = new THREE.BoxGeometry(100, 100, 100);
-    var material = new THREE.MeshLambertMaterial({ color: 0xFFFF00 });
+    var material = new THREE.MeshLambertMaterial({ color: 0xFFFFFF});
     mesh=new THREE.Mesh(geometry,material)
     mesh.position=new THREE.Vector3(0,0,0);
     scene.add(mesh);
@@ -91,7 +97,7 @@ function threeStart() {
 }
 function animation() {
     stats.begin();
-    light.position.set(param.x, param.y, param.z);
+    light.position.set(paramLight.x, paramLight.y, paramLight.z);
     ChangeFov();
     //mesh.position.x -= 1;
     //console.log(mesh.rotation)
@@ -110,4 +116,8 @@ window.onresize = function () {
 function ChangeFov(){
     camera.fov=param.fov;
     camera.updateProjectionMatrix();
+}
+function SetLightColor(color){
+    console.log(color.toHex());
+    light.color.setHex("0x"+color.toHex());
 }
