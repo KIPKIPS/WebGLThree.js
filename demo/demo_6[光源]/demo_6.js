@@ -46,18 +46,22 @@ function initLight() {
         this.x=0;
         this.y=0;
         this.z=0;
+        this.decay=0;
+        this.intensity=1;
     }
     paramLight=new paramObj();
     var gui=new dat.GUI;
     gui.add(paramLight,"x",-10000,10000).name("环境光X");
     gui.add(paramLight,"y",-10000,10000).name("环境光Y");
     gui.add(paramLight,"z",-10000,10000).name("环境光Z");
+    gui.add(paramLight,"decay",0,1).name("衰减系数");
+    gui.add(paramLight,"intensity",0,1).name("光照强度");
 
     //light = new THREE.AmbientLight(0xFFFF00);
-    light = new THREE.DirectionalLight(0xFFFFFF);
+    //light = new THREE.DirectionalLight(0xFFFFFF,1);
     //light = new THREE.AreaLight(0xFFFF00);
     //light = new THREE.SpotLight(0xFFFF00);
-    //light = new THREE.PointLight(0xFFFF00,1);
+    light = new THREE.PointLight(0xFFFFFF,paramLight.intensity,10000,paramLight.decay);
     //light.position.set(0, 0, 0);
     //scene.add(light);
     //light = new THREE.PointLight(0x00FF00);
@@ -98,6 +102,8 @@ function threeStart() {
 function animation() {
     stats.begin();
     light.position.set(paramLight.x, paramLight.y, paramLight.z);
+    light.decay=paramLight.decay;
+    light.intensity=paramLight.intensity;
     ChangeFov();
     //mesh.position.x -= 1;
     //console.log(mesh.rotation)

@@ -158,7 +158,8 @@ function ChangeFov(){
     THREE.AreaLight(区域光)
     THREE..DirectionalLight(方向光)
     THREE.SpotLight(聚光灯) 
-    THREE.PointLight(点光源)
+    THREE.PointLight(点光源) new THREE.PointLight(0xFFFF00,1,100,0.5);
+    点光源参数列表含义,光照颜色,光照强度,点光源的最大距离,到最大距离的衰减值
     3.例:light = new THREE.AmbientLight(0xFFFF00,1);参数列表:光照颜色,光照强度
 ### 八.JQuery.js
     1.引入方法,<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -170,8 +171,7 @@ function ChangeFov(){
            <link rel="stylesheet" type="text/css" herf="spectrum.css"></link>
     详细案例见demo_6.html
         (3)代码:
-```js
-        
+```js 
     $("#color-input-diy").spectrum({
 		color: "red",//初始化颜色
 		showInput: true,//显示输入
@@ -241,5 +241,6 @@ function ChangeFov(){
 		$("#docs-content").css("border-color", hexColor);
     }
  ```
+ 
 
 
