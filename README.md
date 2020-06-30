@@ -241,6 +241,15 @@ function ChangeFov(){
 		$("#docs-content").css("border-color", hexColor);
     }
  ```
- 
+### 十.纹理
+    1.纹理的基本属性:image(图片),wrapS(回环方式),offset(偏移)
+    2.Three.js中的纹理对象,使用THREE.Texture(image,mapping,wrapS,wrapT,magFilter,minFilter,format,type,anisotropy)
+    参数列表:image:图片类型,使用ImageUtils来加载
+             mapping:定义图片映射到模型上的方式
+             wrapS:表示x轴的纹理回环方式,即纹理宽度小于需要的贴图宽度时,平面剩下的地方应当如何进行贴图
+             wrapT表示y轴的纹理回环方式
+    3.纹理的加载方式,使用THREE.TextureLoader()来加载
+    4.cross-origin交叉域问题,浏览器无法读写本地文件,所以本地的图片在浏览器上不能直接访问到
+    5.加载的图片尺寸应为2的次方数
 
 
