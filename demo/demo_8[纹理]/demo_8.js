@@ -105,7 +105,9 @@ function Change(){
     if (texture!=null) {
         texture.repeat.x=texture.repeat.y=param.repeat;
         texture.wrapS=texture.wrapT=param.wrap
-        texture.needsUpdate=true
+        texture.offset.x+=0.01
+        texture.offset.y += 0.01
+        texture.needsUpdate=true//需要更新纹理,纹理缓存在显存中,若不更新,新的纹理不会更新显存中的数据
     }
 }
 
