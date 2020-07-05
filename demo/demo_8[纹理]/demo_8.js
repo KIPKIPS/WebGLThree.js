@@ -76,8 +76,8 @@ function initObject() {
 var param;
 function CreateGUI() {
     var paramObj = function () {
-        this.repeat = 1;
-        this.wrap = 1;
+        this.repeat = 1;//纹理重复
+        this.wrap = 1;//纹理回环
     }
     param = new paramObj();
     var gui = new dat.GUI;
