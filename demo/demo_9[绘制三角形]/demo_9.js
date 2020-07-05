@@ -48,13 +48,23 @@ function initLight() {
     scene.add(light);
 }
 var obj;
+var geometry;
 function initObject() {
-    var geometry=new THREE.BoxGeometry(100,100,100);
+    geometry=new THREE.BoxGeometry(100,100,100);
     var material=new THREE.MeshBasicMaterial({
             vertexColors:THREE.VertexColors,
-            color:0x00FF00,
-            wireframe: true,//该参数的含义为显示线框
+            //color:0x00FF00,
+            wireframe: false,//该参数的含义为显示线框
         });
+    var color1 = new THREE.Color(0x5111B1);
+    var color2 = new THREE.Color(0xF2A222);
+    var color3 = new THREE.Color(0x3F3DD3);
+    for (let index = 0; index < geometry.faces.length; index++) {
+        var f=geometry.faces[index]
+        f.vertexColors[0] = color1;
+        f.vertexColors[1] = color2;
+        f.vertexColors[2] = color3;
+    }
     obj=new THREE.Mesh(geometry,material);
     scene.add(obj);
 }
