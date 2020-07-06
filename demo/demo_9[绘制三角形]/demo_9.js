@@ -50,7 +50,7 @@ function initLight() {
 var obj;
 var geometry;
 function initObject() {
-    geometry=new THREE.BoxGeometry(100,100,100);
+    geometry=new THREE.BoxGeometry(100,100,100,2,2,2);//后面参数为长宽高的分段数
     var material=new THREE.MeshBasicMaterial({
             vertexColors:THREE.VertexColors,
             //color:0x00FF00,
