@@ -59,6 +59,7 @@ function initObject() {
     var color1 = new THREE.Color(0x5111B1);
     var color2 = new THREE.Color(0xF2A222);
     var color3 = new THREE.Color(0x3F3DD3);
+    //遍历构成正方体的每一个面片(三角形)
     for (let index = 0; index < geometry.faces.length; index++) {
         var f=geometry.faces[index]
         f.vertexColors[0] = color1;
