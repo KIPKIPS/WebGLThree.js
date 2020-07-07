@@ -26,7 +26,7 @@ function initCamera() {
     camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);//透视投影相机
     camera.position.x = 0;
     camera.position.y = 0;
-    camera.position.z = 600;
+    camera.position.z = -600;
     camera.up.x = 0;
     camera.up.y = 1;
     camera.up.z = 0;
@@ -72,6 +72,13 @@ function initObject() {
 
     //新建面片
     var face=new THREE.Face3(0,1,2)
+    //为面片顶点添加颜色
+    face.vertexColors[0] = color1;
+    face.vertexColors[1] = color2;
+    face.vertexColors[2] = color3;
+
+    geometry.faces.push(face)
+
     //遍历
     for (let index = 0; index < geometry.faces.length; index++) {
         var f=geometry.faces[index]
@@ -95,7 +102,7 @@ function animation() {
     stats.begin();
     requestAnimationFrame(animation);
     renderer.render(scene, camera);
-    obj.rotation.y-=0.01;
+    //obj.rotation.z-=0.1;
     stats.end();
     
 }
