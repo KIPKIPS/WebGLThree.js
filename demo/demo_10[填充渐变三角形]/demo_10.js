@@ -78,14 +78,6 @@ function initObject() {
     face.vertexColors[2] = color3;
 
     geometry.faces.push(face)
-
-    //遍历
-    for (let index = 0; index < geometry.faces.length; index++) {
-        var f=geometry.faces[index]
-        f.vertexColors[0] = color1;
-        f.vertexColors[1] = color2;
-        f.vertexColors[2] = color3;
-    }
     obj=new THREE.Mesh(geometry,material);
     scene.add(obj);
 }

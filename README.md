@@ -252,7 +252,7 @@ function ChangeFov(){
     4.cross-origin交叉域问题,浏览器无法读写本地文件,所以本地的图片在浏览器上不能直接访问到
     5.加载的图片尺寸应为2的次方数
 ### 十一.自定义几何体
-    步骤:
+    步骤:(例:创建一个三角形)
         1.需要先的行医一个空的几何体对象
 ```js
     var obj;
@@ -269,6 +269,27 @@ function ChangeFov(){
     var p1=new THREE.Vector3(0,0,0);
     var p2=new THREE.Vector3(0,200,0);
     var p3=new THREE.Vector3(200,0,0);
+```
+        3.将顶点放置到几何体空间中
+```js
+    //将顶点放置到自定义几何体空间中
+    geometry.vertices.push(p1);
+    geometry.vertices.push(p2);
+    geometry.vertices.push(p3);
+```
+        4.为几何体新建面片,并为面片添加颜色
+```js
+    //新建面片
+    var color1 = new THREE.Color(0xFF0000);
+    var color2 = new THREE.Color(0x00FF00);
+    var color3 = new THREE.Color(0x0000FF);
+    var face=new THREE.Face3(0,1,2)
+    //为面片顶点添加颜色
+    face.vertexColors[0] = color1;
+    face.vertexColors[1] = color2;
+    face.vertexColors[2] = color3;
+
+    geometry.faces.push(face)//将面片赋予几何体
 ```
             
     
