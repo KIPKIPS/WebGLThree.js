@@ -55,7 +55,7 @@ function initObject() {
             vertexColors:THREE.VertexColors,
             //color:0x00FF00,
             wireframe: false,//该参数的含义为显示线框
-        });
+    });
     var color1 = new THREE.Color(0xFF0000);
     var color2 = new THREE.Color(0x00FF00);
     var color3 = new THREE.Color(0x0000FF);

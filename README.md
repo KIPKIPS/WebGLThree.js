@@ -254,6 +254,22 @@ function ChangeFov(){
 ### 十一.自定义几何体
     步骤:
         1.需要先的行医一个空的几何体对象
-        2.
-
+```js
+    var obj;
+    var geometry=new THREE.Geometry();//自定义几何体
+    var material=new THREE.MeshBasicMaterial({
+            vertexColors:THREE.VertexColors,
+            //color:0x00FF00,
+            wireframe: false,//该参数的含义为显示线框
+    });
+ ```
+        2.定义顶点
+```js
+    //定义顶点
+    var p1=new THREE.Vector3(0,0,0);
+    var p2=new THREE.Vector3(0,200,0);
+    var p3=new THREE.Vector3(200,0,0);
+```
+            
+    
 
