@@ -50,16 +50,29 @@ function initLight() {
 var obj;
 var geometry;
 function initObject() {
-    geometry=new THREE.BoxGeometry(100,100,100,2,2,2);//后面参数为长宽高的分段数
+    geometry=new THREE.Geometry();//自定义几何体
     var material=new THREE.MeshBasicMaterial({
             vertexColors:THREE.VertexColors,
             //color:0x00FF00,
             wireframe: false,//该参数的含义为显示线框
         });
-    var color1 = new THREE.Color(0x5111B1);
-    var color2 = new THREE.Color(0xF2A222);
-    var color3 = new THREE.Color(0x3F3DD3);
-    //遍历构成正方体的每一个面片(三角形)
+    var color1 = new THREE.Color(0xFF0000);
+    var color2 = new THREE.Color(0x00FF00);
+    var color3 = new THREE.Color(0x0000FF);
+
+    //定义顶点
+    var p1=new THREE.Vector3(0,0,0);
+    var p2=new THREE.Vector3(0,200,0);
+    var p3=new THREE.Vector3(200,0,0);
+
+    //将顶点放置到自定义几何体空间中
+    geometry.vertices.push(p1);
+    geometry.vertices.push(p2);
+    geometry.vertices.push(p3);
+
+    //新建面片
+    var face=new THREE.Face3(0,1,2)
+    //遍历
     for (let index = 0; index < geometry.faces.length; index++) {
         var f=geometry.faces[index]
         f.vertexColors[0] = color1;
