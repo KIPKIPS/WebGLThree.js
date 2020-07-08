@@ -195,15 +195,12 @@ function ChangeFov(){
 		},
 		//选择器面板显示时触发
 		show: function () {
-	
 		},
 		//选择器面板显示之前触发,返回false时不显示
 		beforeShow: function () {
- 
 		},
 		//关闭面板或点击选择按钮,颜色变化时触发
-		change:function(){
-			
+		change:function(){	
 		},
 		//选择器面板隐藏时触发
 		hide: function (color) {
