@@ -281,7 +281,6 @@ function ChangeFov(){
     face.vertexColors[0] = color1;
     face.vertexColors[1] = color2;
     face.vertexColors[2] = color3;
-
     geometry.faces.push(face)//将面片赋予几何体
 ```
 ### 十二.3D模型的加载
