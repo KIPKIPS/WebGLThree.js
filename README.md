@@ -188,7 +188,6 @@ function ChangeFov(){
 		noColorSelectedText: "无颜色选择",//清除,按钮文字
 		preferredFormat: "hex",//输入框颜色格式,(hex十六进制,hex3十六进制可以的话只显示3位,hsl,rgb三原色,name英文名显示)
 		localStorageKey: "spectrum.demo",//把选择过的颜色存在浏览器上
-		
 		//选择器右边面板移动时触发
 		move: function (color) {
 			updateBorders(color);
