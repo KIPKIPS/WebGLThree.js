@@ -284,6 +284,7 @@ function ChangeFov(){
     geometry.faces.push(face)//将面片赋予几何体
 ```
 ### 十二.3D模型的加载
+    Loder的执行是异步的,所以在使用加载的对象时需要先进行判空
     
             
     

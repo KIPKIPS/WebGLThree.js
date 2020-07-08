@@ -54,6 +54,7 @@ function initObject() {
     var material=new THREE.MeshBasicMaterial({
             vertexColors:THREE.VertexColors,
             //color:0x00FF00,
+        side: THREE.DoubleSide,//表示材质的两面都会渲染 FrontSide只渲染前面 BackSide只渲染后面
             wireframe: false,//该参数的含义为显示线框
     });
     var color1 = new THREE.Color(0xFF0000);
@@ -94,7 +95,7 @@ function animation() {
     stats.begin();
     requestAnimationFrame(animation);
     renderer.render(scene, camera);
-    //obj.rotation.z-=0.1;
+    obj.rotation.y-=0.01;
     stats.end();
     
 }
