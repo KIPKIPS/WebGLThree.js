@@ -92,12 +92,11 @@ function threeStart() {
     animation();
 }
 function animation() {
-    stats.begin();
+    stats.begin();//性能侦听开始
     requestAnimationFrame(animation);
     renderer.render(scene, camera);
     obj.rotation.y-=0.01;
     stats.end();
-    
 }
 
 //窗口尺寸自适应
