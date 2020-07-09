@@ -37,7 +37,7 @@ var scene;
 function initScene() {
     scene = new THREE.Scene();
 }
-//灯光
+//设置灯光
 var light;
 function initLight() {
     light = new THREE.AmbientLight(0xFFFFFF);
