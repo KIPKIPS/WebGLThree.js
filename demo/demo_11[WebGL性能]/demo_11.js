@@ -54,7 +54,7 @@ function initLight() {
 }
 var mesh;
 function initObject() {
-    var triangles = 1600000;
+    var triangles = 1000000;
     var geometry = new THREE.BufferGeometry();
     //顶点数组,三角形个数x每个三角形三个顶点x每个顶点三个分量(xyz)
     var positions = new Float32Array(triangles * 3 * 3);
@@ -64,13 +64,15 @@ function initObject() {
     var colors = new Float32Array(triangles * 3 * 3);
     var color = new THREE.Color();
     var n = 800, n2 = n / 2;//三角形的限定位置
-    var d = 12, d2 = d / 2;//三角形的大小
+    var d = 10, d2 = d / 2;//三角形的大小
     var pointA = new THREE.Vector3();
     var pointB = new THREE.Vector3();
     var pointC = new THREE.Vector3();
 
     var cb = new THREE.Vector3();//向量
     var ab = new THREE.Vector3();
+
+    var material;
     //每次创建三角形三个点的数据,即九个数值
     for (var i = 0; i < positions.length; i += 9) {
         //随机数区间 -400到400之间
@@ -127,7 +129,6 @@ function initObject() {
         var vy = (y / n) + 0.5;
         var vz = (z / n) + 0.5;
         color.setRGB(vx, vy, vz);
-
         colors[i] = color.r;
         colors[i + 1] = color.g;
         colors[i + 2] = color.b;
@@ -145,13 +146,13 @@ function initObject() {
     geometry.addAttribute("color", new THREE.BufferAttribute(colors, 3));
 
     //计算包围盒
-    geometry.computeBoundingSphere();
-    var material=new THREE.MeshPhongMaterial({
+    //geometry.computeBoundingSphere();
+    material=new THREE.MeshPhongMaterial({
         color:0xaaaaaa,
         specular:0xffffff,
-        shininess:250,
+        shininess:100,
         side:THREE.DoubleSide,
-        vertexColors:THREE.vertexColors
+        vertexColors: THREE.VertexColors,
     });
     mesh=new THREE.Mesh(geometry,material);
     scene.add(mesh);
