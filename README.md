@@ -285,8 +285,6 @@ function ChangeFov(){
 ```
 ### 十二.3D模型的加载
     Loder的执行是异步的,所以在使用加载的对象时需要先进行判空
-    1.加载.vtk格式的模型
-        步骤:在HTML界面引入VTKLoader.js文件
     
             
     
