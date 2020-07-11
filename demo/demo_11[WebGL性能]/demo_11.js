@@ -1,20 +1,27 @@
-const { Mesh } = require("three");
-
 //性能监控
 var stats;
-
+//场景的加载
+var scene;
+function initScene() {
+    scene = new THREE.Scene();
+    scene.fog = new THREE.Fog(0x050505, 2000, 3500)
+    scene.add(new THREE.AmbientLight(0x444444))
+}
 //初始化,主要是设置渲染器,屏幕宽高
 var renderer;
 function initThree() {
     width = document.getElementById('canvas-frame').clientWidth;
     height = document.getElementById('canvas-frame').clientHeight;
     renderer = new THREE.WebGLRenderer({
-        antialias: true
+        antialias: false
     });
     renderer.setSize(width, height);
-    document.getElementById('canvas-frame').appendChild(renderer.domElement);
-    renderer.setClearColor(0xAAAAAA, 1.0);
+    renderer.setClearColor(scene.fog.color);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.gammaInput=true;
+    renderer.gammaOutput=true;
 
+    document.getElementById('canvas-frame').appendChild(renderer.domElement);
     stats = new Stats();
     stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
     stats.domElement.style.position = "absolute";
@@ -33,13 +40,6 @@ function initCamera() {
     // camera.up.y = 1;
     // camera.up.z = 0;
     // camera.lookAt(0, 0, 0);
-}
-//场景的加载
-var scene;
-function initScene() {
-    scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0x050505, 2000, 3500)
-    scene.add(new THREE.AmbientLight(0x444444))
 }
 //灯光
 var light1;
@@ -64,7 +64,7 @@ function initObject() {
     var colors = new Float32Array(triangles * 3 * 3);
     var color = new THREE.Color();
     var n = 800, n2 = n / 2;//三角形的限定位置
-    var d2 = 12, d2 = d / 2;//三角形的大小
+    var d = 12, d2 = d / 2;//三角形的大小
     var pointA = new THREE.Vector3();
     var pointB = new THREE.Vector3();
     var pointC = new THREE.Vector3();
@@ -121,15 +121,48 @@ function initObject() {
         normals[i + 6] = cb.x;
         normals[i + 7] = cb.y;
         normals[i + 8] = cb.z;
+        //color
+        //x为随机产生的数值-400到400,n为800,x/n为-0.5到0.5,再加上0.5即为0到1 RGB分量
+        var vx = (x / n) + 0.5;
+        var vy = (y / n) + 0.5;
+        var vz = (z / n) + 0.5;
+        color.setRGB(vx, vy, vz);
 
+        colors[i] = color.r;
+        colors[i + 1] = color.g;
+        colors[i + 2] = color.b;
+        colors[i + 3] = color.r;
+        colors[i + 4] = color.g;
+        colors[i + 5] = color.b;
+        colors[i + 6] = color.r;
+        colors[i + 7] = color.g;
+        colors[i + 8] = color.b;
     }
+    //为几何体添加属性
+    //addAttriibute方法的第一个参数为属性的类型,第二个参数为自定义的属性值
+    geometry.addAttribute("position",new THREE.BufferAttribute(positions,3));
+    geometry.addAttribute("normal", new THREE.BufferAttribute(normals, 3));
+    geometry.addAttribute("color", new THREE.BufferAttribute(colors, 3));
+
+    //计算包围盒
+    geometry.computeBoundingSphere();
+    var material=new THREE.MeshPhongMaterial({
+        color:0xaaaaaa,
+        specular:0xffffff,
+        shininess:250,
+        side:THREE.DoubleSide,
+        vertexColors:THREE.vertexColors
+    });
+    mesh=new THREE.Mesh(geometry,material);
+    scene.add(mesh);
 
 }
 
 function threeStart() {
+    
+    initScene();
     initThree();
     initCamera();
-    initScene();
     initLight();
     initObject();
     animate();
