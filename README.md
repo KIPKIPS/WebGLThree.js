@@ -285,6 +285,34 @@ function ChangeFov(){
 ```
 ### 十二.3D模型的加载
     Loder的执行是异步的,所以在使用加载的对象时需要先进行判空
+    加载obj格式模型的步骤,需要引入OBJLoader.js(用于加载obj文件),MTLLoader.js(用于加载材质文件)文件
+    详细见demo_13.js案例
+```js
+//创建MTL加载器
+var mtlLoader = new THREE.MTLLoader();
+//设置文件路径
+mtlLoader.setPath('../js/models/obj/');
+//加载mtl文件
+mtlLoader.load('female02.mtl', function (material) {
+    //创建OBJ加载器
+    var objLoader = new THREE.OBJLoader();
+    //设置当前加载的纹理
+    objLoader.setMaterials(material);
+    objLoader.setPath('../js/models/obj/');
+    objLoader.load('female02.obj', function (object) {
+        //添加阴影
+        object.traverse(function (item) {
+            if (item instanceof THREE.Mesh) {
+                item.castShadow = true;
+                item.receiveShadow = true;
+            }
+        });
+        //缩放
+        object.scale.set(.3, .3, .3);
+        scene.add(object);
+    })
+});
+```
     
             
     

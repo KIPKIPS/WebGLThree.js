@@ -28,7 +28,7 @@ function initGui() {
 }
 
 function initLight() {
-    ambientLight = new THREE.AmbientLight("#111111");
+    ambientLight = new THREE.AmbientLight("#ffffff");
     scene.add(ambientLight);
 
     directionalLight = new THREE.DirectionalLight("#ffffff");
@@ -54,7 +54,7 @@ function initLight() {
 function initModel() {
     //底部平面
     var planeGeometry = new THREE.PlaneGeometry(100, 100);
-    var planeMaterial = new THREE.MeshLambertMaterial({ color: 0xaaaaaa, side: THREE.DoubleSide });
+    var planeMaterial = new THREE.MeshLambertMaterial({ color: 0xfabdefff, side: THREE.DoubleSide });
     var plane = new THREE.Mesh(planeGeometry, planeMaterial);
     plane.rotation.x = -0.5 * Math.PI;
     plane.position.y = -.1;
