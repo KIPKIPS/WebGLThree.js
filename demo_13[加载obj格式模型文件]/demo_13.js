@@ -3,7 +3,7 @@ var renderer, camera, scene, gui, stats, ambientLight, directionalLight, control
 function initRender() {
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    //告诉渲染器需要阴影效果
+    //渲染器渲染阴影效果
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap; // 默认的是，没有设置的这个清晰 THREE.PCFShadowMap
     document.body.appendChild(renderer.domElement);
