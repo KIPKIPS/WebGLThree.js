@@ -52,32 +52,35 @@ function initLight() {
 }
 
 function initModel() {
-    //底部平面
-    var planeGeometry = new THREE.PlaneGeometry(100, 100);
-    var planeMaterial = new THREE.MeshLambertMaterial({ color: 0xfabdefff, side: THREE.DoubleSide });
-    var plane = new THREE.Mesh(planeGeometry, planeMaterial);
-    plane.rotation.x = -0.5 * Math.PI;
-    plane.position.y = -.1;
-    plane.receiveShadow = true; //可以接收阴影
-    scene.add(plane);
-    //创建MTL加载器
-    var mtlLoader = new THREE.MTLLoader();
-    //设置文件路径
-    mtlLoader.setPath('../js/models/obj/');
-    //加载mtl文件
-    mtlLoader.load('female02.mtl', function (material) {
-        //创建OBJ加载器
-        var objLoader = new THREE.OBJLoader();
-        //设置当前加载的纹理
-        objLoader.setMaterials(material);
-        objLoader.setPath('../js/models/obj/');
-        objLoader.load('female02.obj',
+    var manager=new THREE.LoadingManager();
+    var texture=new THREE.Texture();
+    var texture2 = new THREE.Texture();
+    var loader=new THREE.ImageLoader(manager);
+    loader.load("../js/models/obj/01_-_Default1noCulling.JPG",function(image){
+        texture.image=image;
+        texture.needsUpdate=true;
+    });
+    loader.load("../js/models/obj/02_-_Default1noCulling.JPG", function (image) {
+        texture2.image = image;
+        texture2.needsUpdate = true;
+    });
+    var i=0;
+    //创建OBJ加载器
+    var objLoader = new THREE.OBJLoader(manager);
+    objLoader.load('../js/models/obj/female02.obj',
         //onload函数
         function (object) {
             //添加阴影
             //traverse函数会遍历自身向下的所有子节点
             object.traverse(function (item) {
                 if (item instanceof THREE.Mesh) {
+                    if (i%2==0) {
+                        item.material.map=texture;
+                    }
+                    else{
+                        item.material.map = texture2;
+                    }
+                    i++;
                     item.castShadow = true;
                     item.receiveShadow = true;
                 }
@@ -85,16 +88,7 @@ function initModel() {
             //缩放
             object.scale.set(.3, .3, .3);
             scene.add(object);
-        },
-        //onProcess方法
-        function(event){
-            console.log(event)
-            //若长度可以计算
-            if (event.lengthComputable) {
-                console.log("now process : "+event.loaded/event.total*100+"%");
-            }
         })
-    });
 
 }
 
