@@ -313,6 +313,7 @@ mtlLoader.load('female02.mtl', function (material) {
     })
 });
 ```
+OBJ文件是一种标准的3D模型文件格式,适合3D模型之间的互相转换
     
             
     
