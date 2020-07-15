@@ -339,6 +339,11 @@ v 2.84 -2.03 0
 v -1.92 -2.98 0
 f 4 3 2 1
 f 1 2 3 4
+//Three.js通过正则表达式来解析obj格式的文件 由OBJLoader.js来处理
+//正则表达式在js中的使用方法
+var str1="sxo05110511"
+var str2="wkp01220122"
+/正则表达式字符串/gm.test(str1) //返回true或者false
 ```
     
             
