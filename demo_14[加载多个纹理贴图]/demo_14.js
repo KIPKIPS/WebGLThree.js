@@ -40,7 +40,6 @@ function initLight() {
     directionalLight.shadow.camera.right = 50; //最右边
     directionalLight.shadow.camera.top = 50; //最上边
     directionalLight.shadow.camera.bottom = -50; //最下面
-
     //这两个值决定生成阴影密度 默认512
     directionalLight.shadow.mapSize.height = 1024;
     directionalLight.shadow.mapSize.width = 1024;
