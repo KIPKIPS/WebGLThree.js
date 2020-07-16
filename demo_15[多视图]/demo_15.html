@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo_15</title>
+    <style type="text/css">
+        .container {
+            position: relative;
+        }
+        #container1,#container2,#container3,#container4 {
+            position: absolute;
+            border: 1px solid #f00;
+            width: 500px;
+            height: 250px;
+        }
+        #container1 {
+            left: 0px;
+        }
+        #container2 {
+            left: 520px;
+        }
+        #container3 {
+            top: 270px;
+        }
+        #container4 {
+            left: 520px;
+            top: 270px;
+        }
+    </style>
+</head>
+
+<body onload="draw();">
+    <div class="container">
+        <div id="container1"></div>
+        <div id="container2"></div>
+        <div id="container3"></div>
+        <div id="container4"></div>
+    </div>
+</body>
+<script src="../js/three.js"></script>
+<script src="../js/loaders/OBJLoader.js"></script>
+<script src="../js/loaders/MTLLoader.js"></script>
+<script src="../js/controls/OrbitControls.js"></script>
+<script src="../js/stats.min.js"></script>
+<script src="../js/dat.gui.min.js"></script>
+<script src="demo_14.js"></script>
+
+</html>
