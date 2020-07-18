@@ -56,7 +56,7 @@ function initCamera() {
 
     camera3 = new THREE.PerspectiveCamera(65, 500 / 250, 1, 10000);
     camera3.setViewOffset(500, 250, 0, 0, 500, 250);
-    camera3.position.y = 3000;
+    camera3.position.y = 1000;
     camera3.up.set(0, 0, 1);
 
     camera4 = new THREE.PerspectiveCamera(45, 500 / 250, 1, 10000);
@@ -157,6 +157,6 @@ function render() {
 
     renderer1.render(scene, camera1);
     renderer2.render(scene, camera2);
-    renderer3.render(scene, camera4);
+    renderer3.render(scene, camera3);
     renderer4.render(scene, camera4);
 }
