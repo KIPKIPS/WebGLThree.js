@@ -20,13 +20,13 @@ function animate() {
     requestAnimationFrame(animate);
 }
 function initRenderer() {
-    renderer1 = new THREE.WebGLRenderer({ antialias: true });
+    renderer1 = new THREE.WebGLRenderer({ antialias: true, alpha: true});//alpha表示渲染背景透明
     renderer1.setSize(500, 250);
-    renderer2 = new THREE.WebGLRenderer({ antialias: true });
+    renderer2 = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer2.setSize(500, 250);
-    renderer3 = new THREE.WebGLRenderer({ antialias: true });
+    renderer3 = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer3.setSize(500, 250);
-    renderer4 = new THREE.WebGLRenderer({ antialias: true });
+    renderer4 = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer4.setSize(500, 250);
 
     container1.appendChild(renderer1.domElement);
