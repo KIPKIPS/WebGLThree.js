@@ -28,7 +28,7 @@
     );
     //正交相机,参数含义(左边界,右边界,上边界,下边界,近切面,远切面)
 ```    
-##### 3.渲染器 主要作用是将场景显示到屏幕上 构造方法 var rende r= new THREE.WebGLRenderer();
+##### 3.渲染器 主要作用是将场景显示到屏幕上 构造方法 var render= new THREE.WebGLRenderer();
 ##### 4.几何体(网格模型) 几何体是包围必要三维数据的数据结构
     属性包含顶点数组 this.vertices,颜色信息 this.color,片面数据 this.faces
     (1)线段
