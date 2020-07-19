@@ -180,7 +180,7 @@ function ChangeFov(){
 		clickoutFiresChange: false,//单击选择器外部,如果颜色有改变则应用
 		containerClassName: "full-spectrum",
 		showInitial: true,//显示初始颜色,提供现在选择的颜色和初始颜色对比
-		showPalette: true,//显示选择器面板，即左侧有按钮的面板
+		showPalette: true,//显示选择器面板,即左侧有按钮的面板
 		showSelectionPalette: true,//记住选择过的颜色
 		showAlpha: true,//显示透明度选择
 		maxPaletteSize: 7,//记住选择过的颜色的最大数量
@@ -230,11 +230,11 @@ function ChangeFov(){
      function updateBorders(color) {
                 //hexColor表示上次调色板显示的颜色
 		var hexColor = "transparent";
-		//如果当前设置颜色，则将颜色设置为当前颜色，否则，如果没有点击确定，则将颜色恢复为上次选择的颜色
+		//如果当前设置颜色,则将颜色设置为当前颜色,否则,如果没有点击确定,则将颜色恢复为上次选择的颜色
                 if(color) {
 		    hexColor = color.toHexString();
 		}
-                //如果没有下面这行代码，点击选择器面板时，即使不点击保存，也会造成input框中的值改变
+                //如果没有下面这行代码,点击选择器面板时,即使不点击保存,也会造成input框中的值改变
 		$("#docs-content").css("border-color", hexColor);
     }
  ```
@@ -352,8 +352,25 @@ var str2="wkp01220122"
 ```js
 //构造函数
 THREE.Raycaster=function (origin,direction,near,far)
-//参数的含义 origin:光线发射出去的地方 direction:归一化的方向向量 near:光线发射最近的地方 far:光线发射最远的地方
-//不传参数会默认起始位置和方向都为原点
+// 参数的含义 origin:光线发射出去的地方 direction:归一化的方向向量 near:光线发射最近的地方 far:光线发射最远的地方
+// 不传参数会默认起始位置和方向都为原点
+var raycaster = new THREE.Raycaster();
+
+// 根据在屏幕的二维位置以及相机的矩阵更新射线的位置,第一个参数为归一化的设备坐标(xyz在-1到1之间),第二个参数光线起源的位置
+raycaster.setFromCamera(mouse, camera);//得到一个由相机指向鼠标的光线
+
+// 参数为检测相交物体的数组
+// 返回一个数组,为相交的对象的数组
+// 增加第二个参数,可以遍历子子孙孙对象
+var intersects = raycaster.intersectObjects(scene.children, true);
+// intersects是返回的一个数组,如果当前位置没有可选中的对象,那这个数组为空,否则为多个对象组成的数组,排列顺序为距离屏幕的距离从近到远的顺序排列
+// 数组的每一个子对象内包含:
+// distance:距离屏幕的距离
+// face:与射线相交的模型的面
+// faceIndex:与射线相交的模型的面的下标
+// object:与射线相交的模型对象
+// point:射线与模型相交的点的位置坐标
+// uv:与射线相交的模型的面的uv映射位置
 ``` 
             
     
