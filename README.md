@@ -1,6 +1,7 @@
 ### 一.安装three.js  
     1.npm `npm install three@0.106.2`  
     2.下载three.js文件拖入项目
+    3.在需要定义three对象的js文件头写入import * as THREE from '../js/three.module.js';路径为自己的three.module.js文件的路径,这样就可以自动提示three.js中的函数和方法
 ### 二.基本组件
 ##### 1.场景 var scene = new THREE.Scene()
 ##### 2.相机
@@ -347,8 +348,13 @@ var str2="wkp01220122"
 //使用正则表达式解析obj格式文件的每一行,拆分成顶点坐标,法向量,uv坐标,再使用BufferGeometry来转化成面片
 //最后将多个转化的面片拼接成几何体,再转化为object对象即可加载到场景中
 ```
-
-    
+### 十三.THREE的Raycaster类
+```js
+//构造函数
+THREE.Raycaster=function (origin,direction,near,far)
+//参数的含义 origin:光线发射出去的地方 direction:归一化的方向向量 near:光线发射最近的地方 far:光线发射最远的地方
+//不传参数会默认起始位置和方向都为原点
+``` 
             
     
 
