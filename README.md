@@ -358,7 +358,4 @@ var intersects = raycaster.intersectObjects(scene.children, true);
 // object:与射线相交的模型对象
 // point:射线与模型相交的点的位置坐标
 // uv:与射线相交的模型的面的uv映射位置
-``` 
-            
-    
-
+```
