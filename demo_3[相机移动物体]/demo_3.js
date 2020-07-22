@@ -54,7 +54,7 @@ var cube;
 var objs=new THREE.Object3D();
 function initObject() {
     var geometry = new THREE.CylinderGeometry(100, 150, 400);
-    var material = new THREE.MeshLambertMaterial({ color: 0xFFFF00 });
+    var material = new THREE.MeshLambertMaterial({ color: 0xFFAA00 });
     var mesh=new THREE.Mesh(geometry,material)
     mesh.position=new THREE.Vector3(0,0,0);
     var axesHelper=new THREE.AxesHelper(800);//辅助坐标系
