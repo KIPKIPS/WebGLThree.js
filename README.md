@@ -361,7 +361,7 @@ var intersects = raycaster.intersectObjects(scene.children, true);
 // point:射线与模型相交的点的位置坐标
 // uv:与射线相交的模型的面的uv映射位置
 ```
-### 十三.几何物体的旋转(绕任意轴,非几何中心)
+### 十四.几何物体的旋转(绕任意轴,非几何中心)
 ```js
 // 1.解决思路:物体放置在一个组对象当中,然后旋转组对象
 //使用rotateOnAxis(v1,0.1);来旋转的注意事项
