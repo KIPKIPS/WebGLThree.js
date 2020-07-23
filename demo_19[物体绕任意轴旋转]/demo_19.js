@@ -42,7 +42,7 @@ function initScene() {
 //灯光
 var light;
 function initLight() {
-    light = new THREE.DirectionalLight(0xff00ff, 1.0, 0);
+    light = new THREE.DirectionalLight(0xffffff*Math.random(), 1.0, 0);
     light.position.set(200, 200, 200);
     scene.add(light);
 }
