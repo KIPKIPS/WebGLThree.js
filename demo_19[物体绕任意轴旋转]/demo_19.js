@@ -108,7 +108,7 @@ function animate() {
     mesh1.rotateOnAxis(v1,x);
     //group.rotateY(0.1);
     //mesh.rotateX(0.1);
-    //mesh.rotateY(Math.PI);
+    //mesh.rotateY(Math.PI);//一帧转一圈
     renderer.render(scene, camera)
     requestAnimationFrame(animate)
 }
