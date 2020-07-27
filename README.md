@@ -164,7 +164,7 @@ document.getElementById("canvas-frame").appendChild(stats.domElement);
         (2)html添加<script src="spectrum.js"></script>
            <link rel="stylesheet" type="text/css" herf="spectrum.css"></link>
     详细案例见demo_6.html
-        (3)代码: 
+        (3)代码:
 ```js 
 $("#color-input-diy").spectrum({
 	color: "red",//初始化颜色
