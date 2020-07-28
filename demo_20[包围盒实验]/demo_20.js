@@ -79,7 +79,6 @@ function initGrid() {
 //帧循环
 var v1 = new THREE.Vector3(0,1,0).normalize();//旋转轴
 function animate() {
-
     group.rotateOnAxis(v1,0.03);
     renderer.render(scene, camera)
     requestAnimationFrame(animate)
