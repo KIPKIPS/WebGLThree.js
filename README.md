@@ -365,7 +365,7 @@ var intersects = raycaster.intersectObjects(scene.children, true);
 ```js
 // 1.解决思路:物体放置在一个组对象当中,然后旋转组对象
 //使用rotateOnAxis(v1,0.1);来旋转的注意事项
-//v1为旋转轴,必选进行归一化,否则绕轴旋转会改变物体的比例
+//v1为旋转轴,必须进行归一化,否则绕轴旋转会改变物体的比例
 var v1 = new THREE.Vector3(1,1,0).normalize();//旋转轴
 mesh.rotateOnAxis(v1,0.1);
 ```
