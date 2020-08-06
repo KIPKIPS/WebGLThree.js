@@ -346,7 +346,7 @@ THREE.Raycaster=function (origin,direction,near,far)
 var raycaster = new THREE.Raycaster();
 
 // 根据在屏幕的二维位置以及相机的矩阵更新射线的位置,第一个参数为归一化的设备坐标(xyz在-1到1之间),第二个参数光线起源的位置
-raycaster.setFromCamera(mouse, camera);//得到一个由相机指向鼠标的光线
+raycaster.setFromCamera(mouse, camera);//得到一个由相机指向鼠标的光线向量
 
 // 参数为检测相交物体的数组
 // 返回一个数组,为相交的对象的数组
