@@ -369,3 +369,21 @@ var intersects = raycaster.intersectObjects(scene.children, true);
 var v1 = new THREE.Vector3(1,1,0).normalize();//旋转轴
 mesh.rotateOnAxis(v1,0.1);
 ```
+### 十五.粒子系统
+```js
+//加载的模型objloader自定义材质
+objLoader.load('xxx.obj',
+    //onload函数
+    function (object) {
+        object.scale.set(0.3,0.3,0.3)
+        //设置材质
+        for (let i = 0; i < object.children.length; i++) {
+            var mat=object.children[i].material
+            mat.color.set(0xffffff)
+            mat.wireframe=true
+        }
+        scene.add(object);
+    }
+)
+```
+###### 1.粒子系统类 THREE.Points() 点材质 THREE.PointsMaterial

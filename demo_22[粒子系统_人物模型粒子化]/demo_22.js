@@ -1,5 +1,5 @@
 //import * as THREE from '../js/three.module.js';
-var renderer, camera, scene, gui, stats, ambientLight, directionalLight, control,parent;
+var renderer, camera, scene, gui, stats, ambientLight, directionalLight, control,parent,body;
 function initRender() {
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -62,26 +62,26 @@ function initModel() {
     scene.add(plane);
     //创建OBJ加载器
     var objLoader = new THREE.OBJLoader();
+    body=new THREE.Group();
     objLoader.setPath('../js/models/obj/');
+    parent = new THREE.Group();
     objLoader.load('female02.obj', function (object) {
         //onload函数
         object.scale.set(0.3,0.3,0.3)
         //设置材质
         for (let i = 0; i < object.children.length; i++) {
-            var mat=object.children[i].material
-            mat.color.set(0xffffff)
-            mat.wireframe=true
+            var child=object.children[i]
+            var grid = new THREE.Points(child.geometry, new THREE.PointsMaterial({
+                color: 0xf23ac0,
+                size: 0.5,
+            }));
+            body.add(grid)
         }
-        scene.add(object);
+        parent.add(body);
+        body.position.y=-83.5;  
+        parent.position.y = 83.5;
+        scene.add(parent);
     });
-    parent=new THREE.Object3D();
-    //粒子系统
-    var grid=new THREE.Points(new THREE.PlaneBufferGeometry(15000,15000,64,64),new THREE.PointsMaterial({
-        color:0xf23ac0,
-        size:10,
-    }));
-    parent.add(grid)
-    scene.add(parent);
 }
 
 function initStats() {
