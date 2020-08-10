@@ -54,6 +54,7 @@ function initLight() {
 function initModel() {
     //底部平面
     var planeGeometry = new THREE.PlaneGeometry(1000, 1000);
+    //console.log(planeGeometry)
     var planeMaterial = new THREE.MeshBasicMaterial({ color: 0xaaaaaa, side: THREE.DoubleSide });
     var plane = new THREE.Mesh(planeGeometry, planeMaterial);
     plane.rotation.x = -0.5 * Math.PI;
@@ -71,11 +72,19 @@ function initModel() {
         //设置材质
         for (let i = 0; i < object.children.length; i++) {
             var child = object.children[i]
+            //console.log(child)
             var grid = new THREE.Points(child.geometry, new THREE.PointsMaterial({
                 color: 0x023ac0,
                 size: 0.5,
             }));
-            body.add(grid)
+            //顶点数组
+            child.geometry.vertices=[]
+            for (let i = 0; i < child.geometry.attributes.position.count; i++) {
+                var pos = child.geometry.attributes.position;
+                child.geometry.vertices[i] = new THREE.Vector3(pos.getX(i), pos.getY(i), pos.getZ(i))
+            }
+            createMesh(child.geometry, scene, 1, 0, 0, 0, 0x0055ff, false)
+            //body.add(grid)
         }
         parent.add(body);
         body.position.y = -83.5;
@@ -101,7 +110,15 @@ function createMesh(originalGeometry, scene, scale, x, y, z, color, dynamic) {
         vertices_tmp[i] = [p.x, p.y, p.z, 0, 0];
     }
     //处理模型由上到下的坍塌动画,静态动态物体
-
+    if (dynamic) {
+        
+    }
+    else{
+        mesh = new THREE.Points(geometry,new THREE.PointsMaterial({
+            color:color,size:1,
+        }));
+        parent.add(mesh)
+    }
     //初始化参数
 
     //管理对象
