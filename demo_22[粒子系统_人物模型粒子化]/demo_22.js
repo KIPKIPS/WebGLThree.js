@@ -72,11 +72,6 @@ function initModel() {
         //设置材质
         for (let i = 0; i < object.children.length; i++) {
             var child = object.children[i]
-            //console.log(child)
-            var grid = new THREE.Points(child.geometry, new THREE.PointsMaterial({
-                color: 0x023ac0,
-                size: 0.5,
-            }));
             //顶点数组
             child.geometry.vertices=[]
             for (let i = 0; i < child.geometry.attributes.position.count; i++) {
