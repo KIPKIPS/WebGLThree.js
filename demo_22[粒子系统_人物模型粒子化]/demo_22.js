@@ -1,5 +1,5 @@
 //import * as THREE from '../js/three.module.js';
-var renderer, camera, scene, gui, stats, ambientLight, directionalLight, control, parent, body;
+var renderer, camera, scene, gui, stats, ambientLight, directionalLight, control, parent;
 function initRender() {
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -60,34 +60,37 @@ function initModel() {
     plane.rotation.x = -0.5 * Math.PI;
     plane.position.y = -.1;
     plane.receiveShadow = true; //可以接收阴影
-    scene.add(plane);
     //创建OBJ加载器
     var objLoader = new THREE.OBJLoader();
-    body = new THREE.Group();
     objLoader.setPath('../js/models/obj/');
     parent = new THREE.Group();
     objLoader.load('female02.obj', function (object) {
         //onload函数
-        object.scale.set(0.3, 0.3, 0.3)
+        object.scale.set(0.3, 0.3, 0.3);
+        colorRandom = [];
+        for (let i = 0; i < 5; i++) {
+            colorRandom.push(0xffffff * Math.random())
+        }
+
         //设置材质
         for (let i = 0; i < object.children.length; i++) {
             var child = object.children[i]
             //顶点数组
-            child.geometry.vertices=[]
+            child.geometry.vertices = []
             for (let i = 0; i < child.geometry.attributes.position.count; i++) {
                 var pos = child.geometry.attributes.position;
                 child.geometry.vertices[i] = new THREE.Vector3(pos.getX(i), pos.getY(i), pos.getZ(i))
             }
-            createMesh(child.geometry, scene, 1, 0, 0, 0, 0x0055ff, false)
+            createMesh(child.geometry, scene, 2, 0, 0, 0, colorRandom, true)
             //body.add(grid)
         }
-        parent.add(body);
-        body.position.y = -83.5;
-        parent.position.y = 83.5;
+        parent.add(plane)
+        parent.position.y = 0;
         scene.add(parent);
     });
 }
-
+var clonesMeshes = []
+var meshes = []
 //粒子动画
 function createMesh(originalGeometry, scene, scale, x, y, z, color, dynamic) {
     //获取顶点位置
@@ -104,19 +107,55 @@ function createMesh(originalGeometry, scene, scale, x, y, z, color, dynamic) {
 
         vertices_tmp[i] = [p.x, p.y, p.z, 0, 0];
     }
+    //模型的位置
+    var clones = [
+        [400, 0, 400],
+        [-400, 0, -400],
+        [-400, 0, 400],
+        [400, 0, -400],
+        [0, 0, 0],
+    ]
     //处理模型由上到下的坍塌动画,静态动态物体
     if (dynamic) {
-        
+        for (let i = 0; i < clones.length; i++) {
+            c = color[i];
+            mesh = new THREE.Points(geometry, new THREE.PointsMaterial({
+                color: c, size: 5,
+            }));
+            mesh.scale.x = mesh.scale.y = mesh.scale.z = scale;
+            mesh.position.x = x + clones[i][0];
+            mesh.position.y = y + clones[i][1];
+            mesh.position.z = z + clones[i][2];
+            parent.add(mesh);
+            //管理对象
+            clonesMeshes.push({ mesh: mesh, speed: 0.5 + Math.random() });
+        }
     }
-    else{
-        mesh = new THREE.Points(geometry,new THREE.PointsMaterial({
-            color:color,size:1,
+    else {
+        mesh = new THREE.Points(geometry, new THREE.PointsMaterial({
+            color: color, size: 1,
         }));
-        parent.add(mesh)
+        mesh.scale.x = mesh.scale.y = mesh.scale.z = scale;
+        mesh.position.x = x;
+        mesh.position.y = y;
+        mesh.position.z = z;
+        parent.add(mesh);
     }
     //初始化参数
-
-    //管理对象
+    meshes.push({
+        mesh: mesh,
+        vertices: geometry.vertices,
+        vertices_tmp: vertices_tmp,
+        vLength: vLength,
+        down: 0,
+        up: 0,
+        speed: 35,
+        delay: Math.floor(200 + 200 * Math.random()),
+        started: false,
+        start: Math.floor(100 + 200 * Math.random()),
+        dynamic: dynamic,
+        direction: 0,
+    });
 }
 
 function initStats() {
@@ -127,8 +166,61 @@ function initStats() {
 function initControl() {
     control = new THREE.OrbitControls(camera, renderer.domElement);
 }
-
+var clock = new THREE.Clock()
 function render() {
+    //计算每一帧的时间
+    delta = clock.getDelta();
+    delta = delta < 2 ? delta : 2;
+    parent.rotation.y += -0.5 * delta;
+    //根据动态还是静态来计算模型顶点位置
+
+    for (let i = 0; i < meshes.length; i++) {
+        data = meshes[i];
+        mesh = data.mesh;
+        vertices = data.vertices;
+        vertices_tmp = data.vertices_tmp;
+        vLength = data.vLength;
+        if (data.dynamic == false) {
+            continue;
+        }
+        //最开始,没有移动,设置向下移动
+        if (data.start > 0) {
+            data.start -= 1;
+        }
+        else {
+            //开始动画
+            if (!data.started) {
+                data.direction = -1;
+                data.started = true;
+            }
+        }
+        //移动每一个顶点
+        for (i = 0; i < vLength; i++) {
+            p = vertices[i];
+            vt = vertices_tmp[i];
+            if (data.direction < 0) {
+                if (p.y > 0) {
+                    //在每一个时间片段-0.5 ~ +0.5,左右移动
+                    p.x += 1.5 * (0.5 - Math.random()) * data.speed * delta;
+                    //向下的概率大于向上的概率,总体趋势向下
+                    p.y += 3 * (0.25 - Math.random()) * data.speed * delta;
+                    p.z += 1.5 * (0.5 - Math.random()) * data.speed * delta;
+                }
+                else {
+                    if (!vt[3]) { //0代表向下
+                        vt[3] = 1;
+                        data.down += 1;
+                    }
+                }
+            }
+            if (data.direction > 0) {
+
+            }
+        }
+        //这个参数设置为true,GPU才会去刷新顶点的位置
+        mesh.geometry.verticesNeedUpdate = true;
+    }
+
     control.update();
     renderer.render(scene, camera);
 }
