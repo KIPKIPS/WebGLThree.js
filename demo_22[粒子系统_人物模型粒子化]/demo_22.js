@@ -11,7 +11,7 @@ function initRender() {
 
 function initCamera() {
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10000);
-    camera.position.set(0, 100, 500);
+    camera.position.set(0, 100, 2000);
     camera.lookAt(new THREE.Vector3(0, 0, 0));
 }
 
@@ -58,7 +58,7 @@ function initModel() {
     var planeMaterial = new THREE.MeshBasicMaterial({ color: 0xaaaaaa, side: THREE.DoubleSide });
     var plane = new THREE.Mesh(planeGeometry, planeMaterial);
     plane.rotation.x = -0.5 * Math.PI;
-    plane.position.y = -.1;
+    plane.position.y = -2;
     plane.receiveShadow = true; //可以接收阴影
     //创建OBJ加载器
     var objLoader = new THREE.OBJLoader();
@@ -77,9 +77,9 @@ function initModel() {
             var child = object.children[i]
             //顶点数组
             child.geometry.vertices = []
-            for (let i = 0; i < child.geometry.attributes.position.count; i++) {
+            for (let j = 0; j < child.geometry.attributes.position.count; j++) {
                 var pos = child.geometry.attributes.position;
-                child.geometry.vertices[i] = new THREE.Vector3(pos.getX(i), pos.getY(i), pos.getZ(i))
+                child.geometry.vertices[j] = new THREE.Vector3(pos.getX(j), pos.getY(j), pos.getZ(j))
             }
             createMesh(child.geometry, scene, 2, 0, 0, 0, colorRandom, true)
             //body.add(grid)
@@ -152,7 +152,7 @@ function createMesh(originalGeometry, scene, scale, x, y, z, color, dynamic) {
         speed: 35,
         delay: Math.floor(200 + 200 * Math.random()),
         started: false,
-        start: Math.floor(100 + 200 * Math.random()),
+        start: Math.floor(10* Math.random()), //各部分开始崩塌的时间
         dynamic: dynamic,
         direction: 0,
     });
@@ -167,15 +167,15 @@ function initControl() {
     control = new THREE.OrbitControls(camera, renderer.domElement);
 }
 var clock = new THREE.Clock()
+var index=0
 function render() {
     //计算每一帧的时间
     delta = clock.getDelta();
     delta = delta < 2 ? delta : 2;
     parent.rotation.y += -0.5 * delta;
     //根据动态还是静态来计算模型顶点位置
-
-    for (let i = 0; i < meshes.length; i++) {
-        data = meshes[i];
+    for (index = 0; index < meshes.length; index++) {
+        data = meshes[index];
         mesh = data.mesh;
         vertices = data.vertices;
         vertices_tmp = data.vertices_tmp;
@@ -195,12 +195,13 @@ function render() {
             }
         }
         //移动每一个顶点
-        for (i = 0; i < vLength; i++) {
+        for (var i = 0; i < vLength; i++) {
             p = vertices[i];
             vt = vertices_tmp[i];
             if (data.direction < 0) {
                 if (p.y > 0) {
-                    //在每一个时间片段-0.5 ~ +0.5,左右移动
+                    //在每一个时间片段-0.5 ~ +0.5,左右移动 
+                    //1.5扩散范围,100左右类似爆破效果
                     p.x += 1.5 * (0.5 - Math.random()) * data.speed * delta;
                     //向下的概率大于向上的概率,总体趋势向下
                     p.y += 3 * (0.25 - Math.random()) * data.speed * delta;
