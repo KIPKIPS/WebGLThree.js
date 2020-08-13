@@ -152,7 +152,7 @@ function createMesh(originalGeometry, scene, scale, x, y, z, color, dynamic) {
         speed: 35,
         delay: Math.floor(200 + 200 * Math.random()),
         started: false,
-        start: Math.floor(10* Math.random()), //各部分开始崩塌的时间
+        start: Math.floor(10 * Math.random()), //各部分开始崩塌的时间
         dynamic: dynamic,
         direction: 0,
     });
@@ -167,7 +167,7 @@ function initControl() {
     control = new THREE.OrbitControls(camera, renderer.domElement);
 }
 var clock = new THREE.Clock()
-var index=0
+var index = 0
 function render() {
     //计算每一帧的时间
     delta = clock.getDelta();
