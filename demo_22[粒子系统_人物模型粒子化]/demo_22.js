@@ -229,6 +229,7 @@ function render() {
                 }
             }
         }
+        //初始化数据
         if (data.down === vLength) {
             if (data.delay === 0) {
                 data.direction = 1;
