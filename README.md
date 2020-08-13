@@ -387,3 +387,4 @@ objLoader.load('xxx.obj',
 )
 ```
 ###### 1.粒子系统类 THREE.Points() 点材质 THREE.PointsMaterial
+mesh.geometry.verticesNeedUpdate = true;//只有将这个属性设置为true,GPU才会重新计算顶点的位置,新的图形才会被渲染
