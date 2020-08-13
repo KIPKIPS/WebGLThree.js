@@ -253,9 +253,7 @@ function draw() {
     initLight();
     initModel();
     initStats();
-
     initControl();
-
     animate();
     window.onresize = onWindowResize;
 }
