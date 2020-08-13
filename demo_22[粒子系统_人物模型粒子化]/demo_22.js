@@ -149,10 +149,10 @@ function createMesh(originalGeometry, scene, scale, x, y, z, color, dynamic) {
         vLength: vLength,
         down: 0,
         up: 0,
-        speed: 35,
+        speed: 80,
         delay: Math.floor(200 + 200 * Math.random()),
         started: false,
-        start: Math.floor(10 * Math.random()), //各部分开始崩塌的时间
+        start: 100, //各部分开始崩塌的时间
         dynamic: dynamic,
         direction: 0,
     });
@@ -170,8 +170,8 @@ var clock = new THREE.Clock()
 var index = 0
 function render() {
     //计算每一帧的时间
-    delta = clock.getDelta();
-    delta = delta < 2 ? delta : 2;
+    var delta = clock.getDelta();
+    var delta = delta < 2 ? delta : 2;
     parent.rotation.y += -0.5 * delta;
     //根据动态还是静态来计算模型顶点位置
     for (index = 0; index < meshes.length; index++) {
@@ -196,15 +196,15 @@ function render() {
         }
         //移动每一个顶点
         for (var i = 0; i < vLength; i++) {
-            p = vertices[i];
-            vt = vertices_tmp[i];
+            var p = vertices[i];
+            var vt = vertices_tmp[i];
             if (data.direction < 0) {
                 if (p.y > 0) {
                     //在每一个时间片段-0.5 ~ +0.5,左右移动 
                     //1.5扩散范围,100左右类似爆破效果
                     p.x += 1.5 * (0.5 - Math.random()) * data.speed * delta;
                     //向下的概率大于向上的概率,总体趋势向下
-                    p.y += 3 * (0.25 - Math.random()) * data.speed * delta;
+                    p.y += 3 * (0.15 - Math.random()) * data.speed * delta;
                     p.z += 1.5 * (0.5 - Math.random()) * data.speed * delta;
                 }
                 else {
@@ -215,7 +215,46 @@ function render() {
                 }
             }
             if (data.direction > 0) {
-
+                var d = Math.abs(p.x - vt[0]) + Math.abs(p.y - vt[1]) + Math.abs(p.z - vt[2]);
+                if (d > 1) {
+                    p.x += -(p.x - vt[0]) / d * data.speed * delta * (0.75 - Math.random());
+                    p.y += -(p.y - vt[1]) / d * data.speed * delta * (1 + Math.random());
+                    p.z += -(p.z - vt[2]) / d * data.speed * delta * (0.75 - Math.random());
+                }
+                else {
+                    if (!vt[4]) {
+                        vt[4] = 1;
+                        data.up += 1;
+                    }
+                }
+            }
+        }
+        if (data.down === vLength) {
+            if (data.delay === 0) {
+                data.direction = 1;
+                data.speed = 80;
+                data.down = 0;
+                data.delay = 300;
+                for (let i = 0; i < vLength; i++) {
+                    vertices_tmp[i][3] = 0;
+                }
+            }
+            else {
+                data.delay -= 1;
+            }
+        }
+        if (data.up === vLength) {
+            if (data.delay === 0) {
+                data.direction = -1;
+                data.speed = 80;
+                data.up = 0;
+                data.delay = 300;
+                for (let i = 0; i < vLength; i++) {
+                    vertices_tmp[i][4] = 0;
+                }
+            }
+            else {
+                data.delay -= 1;
             }
         }
         //这个参数设置为true,GPU才会去刷新顶点的位置
