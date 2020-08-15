@@ -278,7 +278,6 @@ function animate() {
     render();
     // parent.rotation.x+=0.01;
     // parent.rotation.y += 0.01;
-    // parent.rotation.z += 0.01;
     //更新性能插件
     stats.update();
 
