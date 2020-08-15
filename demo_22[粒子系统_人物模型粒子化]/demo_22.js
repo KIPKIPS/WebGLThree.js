@@ -284,7 +284,7 @@ function animate() {
 
     requestAnimationFrame(animate);
 }
-
+//初始化
 function draw() {
     initGui();
     initRender();
