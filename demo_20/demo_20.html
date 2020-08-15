@@ -1,0 +1,44 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-07-26 17:28:03
+ * @LastEditTime: 2020-07-30 00:13:56
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \WebGL_Three.js\demo_20[包围盒实验]\demo_20.html
+--> 
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>包围盒实验</title>
+    <style type="text/css">
+        div#canvas-frame {
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            background-color: #eeeeee;
+        }
+        * {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body onload="init();">
+    <div style="position: absolute;left:0;top:0;">
+        <p>立方体网格线</p>
+    </div>
+    <div id="canvas-frame" style="position: absolute;left: 0;top: 0;"></div>
+</body>
+<script src="../js/three.js"></script>
+<script src="../js/controls/OrbitControls.js"></script>
+<script src="../js/stats.min.js"></script>
+<script src="../js/dat.gui.min.js"></script>
+<script src="demo_20.js"></script>
+
+</html>

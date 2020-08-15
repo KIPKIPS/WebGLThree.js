@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html style="height: 100%; width: 100%;">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../js/three.js"></script>
+    <script src="../js/stats.min.js"></script>
+    <script src="./demo_6.js"></script>
+    <script src="../js/tween.umd.js"></script>
+    <script src="../js/dat.gui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="spectrum.js"></script>
+    <link rel='stylesheet' href='spectrum.css' />
+    <style type="text/css">
+        div#canvas-frame {
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            height: 600px;
+            background-color: #EEEEEE;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body style="height: 100%; width: 100%;overflow: hidden;" onload="threeStart();">
+    <div style="height: 100%; width: 100%;" id="canvas-frame">
+        <div style="bottom: 0;position: absolute;">
+            <input id="color-input-diy"name="color-input-diy" > 
+        </div>
+        
+    </div>
+</body>
+<script type="text/javascript">
+    $("#color-input-diy").spectrum({
+		color: "black",//初始化颜色
+		showInput: true,//显示输入
+        //allowEmpty:true,//允许为空,显示清楚颜色按钮
+		clickoutFiresChange: false,//单击选择器外部,如果颜色有改变则应用
+		containerClassName: "full-spectrum",
+		showInitial: true,//显示初始颜色,提供现在选择的颜色和初始颜色对比
+		showPalette: true,//显示选择器面板，即左侧有按钮的面板
+		showSelectionPalette: true,//记住选择过的颜色
+		showAlpha: true,//显示透明度选择
+		maxPaletteSize: 7,//记住选择过的颜色的最大数量
+		cancelText: "取消",//取消按钮,按钮文字
+		chooseText: "确定",//选择按钮,按钮文字
+		noColorSelectedText: "无颜色选择",//清除,按钮文字
+		preferredFormat: "hex",//输入框颜色格式,(hex十六进制,hex3十六进制可以的话只显示3位,hsl,rgb三原色,name英文名显示)
+		localStorageKey: "spectrum.demo",//把选择过的颜色存在浏览器上
+		
+		//选择器右边面板移动时触发
+		move: function (color) {
+			updateBorders(color);
+		},
+		//选择器面板显示时触发
+		show: function () {
+	
+		},
+		//选择器面板显示之前触发,返回false时不显示
+		beforeShow: function () {
+ 
+		},
+		//关闭面板或点击选择按钮,颜色变化时触发
+		change:function(){
+			
+		},
+		//选择器面板隐藏时触发
+		hide: function (color) {
+            updateBorders(color);
+            SetLightColor(color)
+		},
+		//调色选择器面板显示的颜色
+		palette: [
+		      ["rgb(0, 0, 0)", "rgb(67, 67, 67)", "rgb(102, 102, 102)", "rgb(153, 153, 153)","rgb(183, 183, 183)",
+		      "rgb(204, 204, 204)", "rgb(217, 217, 217)", "rgb(239, 239, 239)", "rgb(243, 243, 243)", "rgb(255, 255, 255)"],
+		      ["rgb(152, 0, 0)", "rgb(255, 0, 0)", "rgb(255, 153, 0)", "rgb(255, 255, 0)", "rgb(0, 255, 0)",
+		      "rgb(0, 255, 255)", "rgb(74, 134, 232)", "rgb(0, 0, 255)", "rgb(153, 0, 255)", "rgb(255, 0, 255)"],
+		      ["rgb(230, 184, 175)", "rgb(244, 204, 204)", "rgb(252, 229, 205)", "rgb(255, 242, 204)", "rgb(217, 234, 211)",
+		      "rgb(208, 224, 227)", "rgb(201, 218, 248)", "rgb(207, 226, 243)", "rgb(217, 210, 233)", "rgb(234, 209, 220)"],
+		      ["rgb(221, 126, 107)", "rgb(234, 153, 153)", "rgb(249, 203, 156)", "rgb(255, 229, 153)", "rgb(182, 215, 168)",
+		      "rgb(162, 196, 201)", "rgb(164, 194, 244)", "rgb(159, 197, 232)", "rgb(180, 167, 214)", "rgb(213, 166, 189)"],
+		      ["rgb(204, 65, 37)", "rgb(224, 102, 102)", "rgb(246, 178, 107)", "rgb(255, 217, 102)", "rgb(147, 196, 125)",
+		      "rgb(118, 165, 175)", "rgb(109, 158, 235)", "rgb(111, 168, 220)", "rgb(142, 124, 195)", "rgb(194, 123, 160)"],
+		      ["rgb(166, 28, 0)", "rgb(204, 0, 0)", "rgb(230, 145, 56)", "rgb(241, 194, 50)", "rgb(106, 168, 79)",
+		      "rgb(69, 129, 142)", "rgb(60, 120, 216)", "rgb(61, 133, 198)", "rgb(103, 78, 167)", "rgb(166, 77, 121)"],
+		      ["rgb(133, 32, 12)", "rgb(153, 0, 0)", "rgb(180, 95, 6)", "rgb(191, 144, 0)", "rgb(56, 118, 29)",
+		      "rgb(19, 79, 92)", "rgb(17, 85, 204)", "rgb(11, 83, 148)", "rgb(53, 28, 117)", "rgb(116, 27, 71)"],
+		      ["rgb(91, 15, 0)", "rgb(102, 0, 0)", "rgb(120, 63, 4)", "rgb(127, 96, 0)", "rgb(39, 78, 19)",
+		      "rgb(12, 52, 61)", "rgb(28, 69, 135)", "rgb(7, 55, 99)", "rgb(32, 18, 77)", "rgb(76, 17, 48)"]
+		     ]
+		
+	});
+     function updateBorders(color) {
+                //hexColor表示上次调色板显示的颜色
+		var hexColor = "transparent";
+		//如果当前设置颜色，则将颜色设置为当前颜色，否则，如果没有点击确定，则将颜色恢复为上次选择的颜色
+                if(color) {
+		    hexColor = color.toHexString();
+		}
+        //如果没有下面这行代码，点击选择器面板时，即使不点击保存，也会造成input框中的值改变
+		$("#docs-content").css("border-color", hexColor);
+    }
+</script>
+
+</html>
