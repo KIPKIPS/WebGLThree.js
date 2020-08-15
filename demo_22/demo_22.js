@@ -262,7 +262,6 @@ function render() {
         //这个参数设置为true,GPU才会去刷新顶点的位置
         mesh.geometry.verticesNeedUpdate = true;
     }
-
     control.update();
     renderer.render(scene, camera);
 }
