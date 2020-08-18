@@ -398,4 +398,15 @@ mesh.geometry.verticesNeedUpdate = true;//只有将这个属性设置为true,GPU
 二阶贝塞尔曲线公式:B(t) = (1 - t)² * P0 + 2 * t * (1 - t) * P1 + t² * P2 ,t∈[0,1]
 //三阶贝塞尔曲线:中间两个控制点
 三阶贝塞尔曲线公式:B(t) = (1 - t)³ * P0 + 3 * P2 * t² * (1 - t) + t³ * P3 ,t∈[0,1]
+
+//贝塞尔曲线在THREE.js中
+二阶:
+circleShape.moveTo(circleRadius, 0);//端点1
+//参数为控制点和端点2
+circleShape.quadraticCurveTo(0, circleRadius, -circleRadius, 0);
+三阶:
+//需要由端点1调用,参数为控制点1,2和端点2
+THREE.Path.portotype.bezierCurveTo=function (aCP1x,aCP1y,aCP2x,aCP2y,aX,aY) {
+    
+}
 ```

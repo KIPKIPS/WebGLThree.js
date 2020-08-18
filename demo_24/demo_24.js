@@ -1,7 +1,4 @@
-//TODO:贝塞尔曲线和绘制路径
-//绘图命令和点计算
-//为了不每调用一个函数就计算一次顶点,将每个与绘图相关的函数存为一条指令,最后一次性调用某个函数,生成所有顶点
-//这样不必在每个函数都单独的实现绘制顶点的方法,只需要一个函数在最后的时候,去生成所有的顶点,提高效率
+//TODO:模拟柔性布料
 //import * as THREE from '../js/three.module.js';
 var container, stats;
 var camera, scene, renderer;
