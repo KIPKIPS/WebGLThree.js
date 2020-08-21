@@ -1,13 +1,12 @@
 //TODO:模拟柔性布料
+
+
 //import * as THREE from '../js/three.module.js';
 var container, stats;
 var camera, scene, renderer;
 var group;
 var targetRotation = 0;
-var targetRotationOnMoUseDown = 0;
-var mouseX = 0;
-var mouseXOnMouseDown = 0;
-var windowHalfX = window.innerWidth / 2;
+var targetRotationOnMoUseDown = 00
 var windowHalfY = window.innerHeight / 2;
 var circleShape,line,points;
 
