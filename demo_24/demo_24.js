@@ -1,6 +1,4 @@
-//TODO:模拟柔性布料
-
-
+//TODO:着色器
 //import * as THREE from '../js/three.module.js';
 var container, stats;
 var camera, scene, renderer;
@@ -32,11 +30,6 @@ function init() {
     //灯光
     var light = new THREE.PointLight(0xffffff, 0.8);
     camera.add(light);
-
-    //组对象
-    group = new THREE.Group();
-    group.position.y = 50;
-    scene.add(group);  
 }
 animate();
 function animate() {
