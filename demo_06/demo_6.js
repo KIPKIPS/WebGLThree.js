@@ -3,6 +3,7 @@
 var stats;
 
 var renderer;
+
 function initThree() {
     width = document.getElementById('canvas-frame').clientWidth;
     height = document.getElementById('canvas-frame').clientHeight;
@@ -23,8 +24,9 @@ function initThree() {
 }
 
 var camera;
+
 function initCamera() {
-    camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);//透视投影相机
+    camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000); //透视投影相机
     //camera = new THREE.OrthographicCamera(-window.innerWidth /2, window.innerWidth / 2, window.innerHeight / 2, -window.innerHeight /2, 10, 10000);//正交投影相机
     camera.position.x = 0;
     camera.position.y = 0;
@@ -36,33 +38,35 @@ function initCamera() {
 }
 
 var scene;
+
 function initScene() {
     scene = new THREE.Scene();
 }
 
 var light;
 var paramLight;
+
 function initLight() {
-    var paramObj=function(){
-        this.x=0;
-        this.y=0;
-        this.z=0;
-        this.decay=0;
-        this.intensity=1;
+    var paramObj = function() {
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
+        this.decay = 0;
+        this.intensity = 1;
     }
-    paramLight=new paramObj();
-    var gui=new dat.GUI;
-    gui.add(paramLight,"x",-10000,10000).name("环境光X");
-    gui.add(paramLight,"y",-10000,10000).name("环境光Y");
-    gui.add(paramLight,"z",-10000,10000).name("环境光Z");
-    gui.add(paramLight,"decay",0,1).name("衰减系数");
-    gui.add(paramLight,"intensity",0,1).name("光照强度");
+    paramLight = new paramObj();
+    var gui = new dat.GUI;
+    gui.add(paramLight, "x", -10000, 10000).name("环境光X");
+    gui.add(paramLight, "y", -10000, 10000).name("环境光Y");
+    gui.add(paramLight, "z", -10000, 10000).name("环境光Z");
+    gui.add(paramLight, "decay", 0, 1).name("衰减系数");
+    gui.add(paramLight, "intensity", 0, 1).name("光照强度");
 
     //light = new THREE.AmbientLight(0xFFFF00);
     //light = new THREE.DirectionalLight(0xFFFFFF,1);
     //light = new THREE.AreaLight(0xFFFF00);
     //light = new THREE.SpotLight(0xFFFF00);
-    light = new THREE.PointLight(0xFFFFFF,paramLight.intensity,10000,paramLight.decay);
+    light = new THREE.PointLight(0xFFFFFF, paramLight.intensity, 10000, paramLight.decay);
     //light.position.set(0, 0, 0);
     //scene.add(light);
     //light = new THREE.PointLight(0x00FF00);
@@ -70,26 +74,36 @@ function initLight() {
     scene.add(light);
 }
 var mesh;
+
 function initObject() {
     var geometry = new THREE.BoxGeometry(100, 100, 100);
-    var material = new THREE.MeshLambertMaterial({ color: 0xFFFFFF});
-    mesh=new THREE.Mesh(geometry,material)
-    mesh.position=new THREE.Vector3(0,0,0);
+    var material = new THREE.MeshLambertMaterial({ color: 0xFFFFFF });
+    mesh = new THREE.Mesh(geometry, material)
+    mesh.position = new THREE.Vector3(0, 0, 0);
     scene.add(mesh);
 }
-function initTween(){
+
+function initTween() {
     //new TWEEN.Tween(mesh.position).to({x:500},4000).repeat(3).start();
-    new TWEEN.Tween(mesh.rotation).to({y:360,z:360,x:360},1000000).repeat(Infinity).start();
+    new TWEEN.Tween(mesh.rotation).to({ y: 360, z: 360, x: 360 }, 1000000).repeat(Infinity).start();
 }
 var param;
-function CreateGUI(){
-    var paramObj=function(){
-        this.fov=45;
+
+function CreateGUI() {
+    var paramObj = function() {
+        this.fov = 45;
+        this.rotationX = 0;
+        this.rotationY = 0;
+        this.rotationZ = 0;
     }
-    param=new paramObj();
-    var gui=new dat.GUI;
-    gui.add(param,"fov",0,180).name("视角大小");
+    param = new paramObj();
+    var gui = new dat.GUI;
+    gui.add(param, "fov", 0, 180).name("视角大小");
+    gui.add(param, "rotationX", -1, 1).name("x");
+    gui.add(param, "rotationY", -1, 1).name("y");
+    gui.add(param, "rotationZ", -1, 1).name("z");
 }
+
 function threeStart() {
     initThree();
     initCamera();
@@ -99,12 +113,16 @@ function threeStart() {
     initTween();
     CreateGUI();
     animation();
+    // console.log(camera.rotation.x)
+    // camera.rotation.x = 0.2
 }
+
 function animation() {
     stats.begin();
     light.position.set(paramLight.x, paramLight.y, paramLight.z);
-    light.decay=paramLight.decay;
-    light.intensity=paramLight.intensity;
+    light.decay = paramLight.decay;
+    light.intensity = paramLight.intensity;
+    camera.rotation.set(param.rotationX, param.rotationY, param.rotationZ);
     ChangeFov();
     //mesh.position.x -= 1;
     //console.log(mesh.rotation)
@@ -115,16 +133,18 @@ function animation() {
 }
 
 //窗口尺寸自适应
-window.onresize = function () {
-    renderer.setSize(window.innerWidth, window.innerHeight);//重设渲染器宽高比
-    camera.aspect = window.innerWidth / window.innerHeight;//重设相机宽高比
-    camera.updateProjectionMatrix();// 重新计算投影矩阵
+window.onresize = function() {
+    renderer.setSize(window.innerWidth, window.innerHeight); //重设渲染器宽高比
+    camera.aspect = window.innerWidth / window.innerHeight; //重设相机宽高比
+    camera.updateProjectionMatrix(); // 重新计算投影矩阵
 }
-function ChangeFov(){
-    camera.fov=param.fov;
+
+function ChangeFov() {
+    camera.fov = param.fov;
     camera.updateProjectionMatrix();
 }
-function SetLightColor(color){
+
+function SetLightColor(color) {
     console.log(color.toHex());
-    light.color.setHex("0x"+color.toHex());
+    light.color.setHex("0x" + color.toHex());
 }
