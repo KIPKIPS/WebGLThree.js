@@ -1,4 +1,4 @@
-### 一.安装three.js  
+### 一.安装three.js
     1.npm `npm install three@0.106.2`  vscode
     2.下载three.js文件拖入项目
     3.在需要定义three对象的js文件头写入import * as THREE from '../js/three.module.js';路径为自己的three.module.js文件的路径,这样就可以自动提示three.js中的函数和方法
