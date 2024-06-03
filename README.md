@@ -1,3 +1,4 @@
+写的网站 kips.cc
 ### 一.安装three.js  
     1.npm `npm install three@0.106.2`  vscode
     2.下载three.js文件拖入项目
